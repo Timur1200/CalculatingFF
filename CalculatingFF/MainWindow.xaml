@@ -1,0 +1,54 @@
+﻿<Window x:Class="CalculatingFF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CalculatingFF"
+        mc:Ignorable="d"
+        Title="Итерационный подбор" Height="760" Width="1000">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Первая колона для входных значений  -->
+        <ScrollViewer>
+            <StackPanel Grid.Column="0" Margin="20">
+                <TextBlock FontSize="24" FontStyle="Oblique" Text="Входные данные" />
+                <TextBlock Text="с0" />
+                <TextBox x:Name="txtBoxC0"/>
+                <TextBlock Text="с90" />
+                <TextBox x:Name="txtBoxC90"/>
+                <TextBlock Text="ro0" />
+                <TextBox x:Name="txtBoxRo0"/>
+                <TextBlock Text="ro90" />
+                <TextBox x:Name="txtBoxRo90"/>
+                <TextBlock Text="SIG2" />
+                <TextBox x:Name="txtBoxSIG2"/>
+                <TextBlock Text="SIG3" />
+                <TextBox x:Name="txtBoxSIG3"/>
+                <TextBlock Text="Betta" />
+                <TextBox x:Name="txtBoxBetta"/>
+                <TextBlock Text="[F1, F2] не больше значения" />
+                <TextBox x:Name="txtBoxAbsValueMax" Text="0,1"/>
+
+                <Button Margin="20" Content="Подобрать" Click="Button_Click_Choose_Values"/>
+                <Button Margin="20" Content="Экспорт в Excel" Click="Button_Click_Export_Excel"/>
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- Вторая колона для входных значений  -->
+        <StackPanel Grid.Column="1" Margin="20">
+            <TextBlock FontSize="24" FontStyle="Oblique" Text="Результат" />
+            <TextBlock Text="Psi" />
+            <TextBox IsReadOnly="True" x:Name="txtBoxPsi"/>
+            <TextBlock Text="SIG1" />
+            <TextBox IsReadOnly="True" x:Name="txtBoxSIG1"/>
+            <TextBlock Text="F1" />
+            <TextBox IsReadOnly="True" x:Name="txtBoxF1"/>
+            <TextBlock Text="F2" />
+            <TextBox IsReadOnly="True" x:Name="txtBoxF2"/>
+        </StackPanel>
+    </Grid>
+</Window>
