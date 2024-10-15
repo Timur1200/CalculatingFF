@@ -17,6 +17,7 @@ namespace CalculatingFF
         public MainWindow()
         {
             InitializeComponent();
+            WinFrame.NavigationService.Navigate(new TabPage());
         }
 
         private void Button_Click_Choose_Values(object sender, RoutedEventArgs e)
