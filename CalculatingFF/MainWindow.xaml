@@ -58,6 +58,9 @@
         <TabItem Header="2">
             <Frame Name="WinFrame"></Frame>
         </TabItem>
+        <TabItem Header="3">
+            <Frame Name="TabFrame3"></Frame>
+        </TabItem>
     </TabControl>
    
 </Window>

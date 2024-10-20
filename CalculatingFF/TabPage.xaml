@@ -51,11 +51,15 @@
             </StackPanel>
         </ScrollViewer>
 
-        <!-- Вторая колона для входных значений  -->
+        <!-- Вторая колона для выходных значений  -->
         <StackPanel Grid.Column="1" Margin="20">
             <TextBlock FontSize="24" FontStyle="Oblique" Text="Результат" />
             <TextBlock Text="C0"></TextBlock>
             <TextBox Text="{Binding C0}" Name="c0TextBox" ></TextBox>
+            <TextBlock Text="C90" ></TextBlock>
+            <TextBox IsReadOnly="True" Text="{Binding C90}" ></TextBox>
+            <TextBlock Text="R90" ></TextBlock>
+            <TextBox IsReadOnly="True" Text="{Binding R90}" ></TextBox>
             <TextBlock Text="M1" />
             <TextBox IsReadOnly="True"  Text="{Binding M1}"/>
             <TextBlock Text="M2" />

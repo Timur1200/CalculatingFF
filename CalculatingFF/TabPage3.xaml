@@ -1,0 +1,89 @@
+﻿<Page x:Class="CalculatingFF.TabPage3"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:CalculatingFF"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="TabPage3">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Первая колона для входных значений  -->
+        <ScrollViewer>
+            <StackPanel Grid.Column="0" Margin="20">
+                <TextBlock FontSize="24" FontStyle="Oblique" Text="Входные данные" />
+                <TextBlock Text="s11" />
+                <TextBox Text="{Binding S11}" x:Name="s11TextBox"/>
+                <TextBlock Text="S31" />
+                <TextBox Text="{Binding S31}" x:Name="s31TextBox"/>
+                <TextBlock Text="S12" />
+                <TextBox x:Name="s21TextBox" Text="{Binding S12}"/>
+                <TextBlock Text="S32" />
+                <TextBox Text="{Binding S32}" x:Name="s23TextBox"/>
+                <TextBlock Text="S13" />
+                <TextBox Text="{Binding S13}" x:Name="s13TextBox"/>
+                <TextBlock Text="S33" />
+                <TextBox Text="{Binding S33}" x:Name="s33TextBox" />
+
+                <TextBlock Name="a1Text" Text="{Binding StringFormat=α1 rad{0}, Path=A1rad}" />
+                <TextBox Text="{Binding A1}" x:Name="a1TextBox"/>
+
+
+                <TextBlock Text="{Binding StringFormat=α2 rad{0}, Path=A2rad}" Name="a2Text" />
+                <TextBox Text="{Binding A2}"  x:Name="a2TextBox"/>
+                <TextBlock Text="{Binding StringFormat=α3 rad{0}, Path=A3rad}" Name="a3Text"  />
+                <TextBox  Text="{Binding A3}" x:Name="a3TextBox"/>
+
+                <TextBlock Text="C0" />
+                <TextBox Text="{Binding C0}"></TextBox>
+                <TextBlock Text="C90"></TextBlock>
+                <TextBox Text="{Binding C90}"></TextBox>
+
+
+               
+
+
+                <Button Margin="20" Content="Подобрать" Click="SelectionClick"/>
+                <Button Margin="20" Content="Вычислить" Click="SolveClick"/>
+                <Button Visibility="Collapsed" IsEnabled="False" Margin="20" Content="Экспорт в Excel"/>
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- Вторая колона для выходных значений  -->
+        <ScrollViewer Grid.Column="1">
+            <StackPanel  Margin="20" >
+            <TextBlock FontSize="24" FontStyle="Oblique" Text="Результат" />
+                
+            <TextBlock Text="k"></TextBlock>
+            <TextBox Text="{Binding K}"  ></TextBox>
+            <TextBlock Text="T1" ></TextBlock>
+            <TextBox  Text="{Binding T1}" ></TextBox>
+            
+            <TextBlock Text="Z1" />
+            <TextBox Text="{Binding Z1}" IsReadOnly="True" />
+            <TextBlock Text="Z2" />
+            <TextBox Text="{Binding Z2}" IsReadOnly="True" />
+
+            <TextBlock Text="C0" />
+            <TextBox Text="{Binding _C0}" IsReadOnly="True" />
+            <TextBlock Text="C90" />
+            <TextBox Text="{Binding _C90}" IsReadOnly="True" />
+            <TextBlock Text="N1" ></TextBlock>
+            <TextBox IsReadOnly="True" Text="{Binding N1}" ></TextBox>
+            <TextBlock Text="N2" />
+            <TextBox IsReadOnly="True"  Text="{Binding N2}"/>
+            <TextBlock Text="N3" />
+            <TextBox IsReadOnly="True" Text="{Binding N3}"/>
+            <TextBlock Text="F" />
+            <TextBox IsReadOnly="True" Text="{Binding F}"/>
+
+        </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Page>
