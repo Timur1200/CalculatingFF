@@ -22,13 +22,13 @@ namespace CalculatingFF
         public TabPage()
         {
             InitializeComponent();
-            _Model = new Model(true);
+            _Model = new Model2(true);
             DataContext = _Model;
           
             
         }
 
-        Model _Model;
+        Model2 _Model;
         private void SelectionClick(object sender, RoutedEventArgs e)
         {
             _Model.Selection();
@@ -38,11 +38,11 @@ namespace CalculatingFF
             _Model.Solve();
         }
 
-        private void Button_Click_Export_Excel(object sender, RoutedEventArgs e)
+      
+        private void ToExcelClick(object sender, RoutedEventArgs e)
         {
-
+            ExcelHelper excelHelper = new ExcelHelper();
+            excelHelper.ToExcel2(_Model);
         }
-
-        
     }
 }

@@ -40,10 +40,10 @@
                 <TextBlock Text="{Binding StringFormat=α3 rad{0}, Path=A3rad}" Name="a3Text"  />
                 <TextBox  Text="{Binding A3}" x:Name="a3TextBox"/>
 
-                <TextBlock Text="C0" />
+                <!--<TextBlock Text="C0" />
                 <TextBox Text="{Binding C0}"></TextBox>
                 <TextBlock Text="C90"></TextBlock>
-                <TextBox Text="{Binding C90}"></TextBox>
+                <TextBox Text="{Binding C90}"></TextBox>-->
 
 
                
@@ -51,7 +51,7 @@
 
                 <Button Margin="20" Content="Подобрать" Click="SelectionClick"/>
                 <Button Margin="20" Content="Вычислить" Click="SolveClick"/>
-                <Button Visibility="Collapsed" IsEnabled="False" Margin="20" Content="Экспорт в Excel"/>
+                <Button Click="ToExcelClick"  Margin="20" Content="Экспорт в Excel"/>
             </StackPanel>
         </ScrollViewer>
 
@@ -80,8 +80,8 @@
             <TextBox IsReadOnly="True"  Text="{Binding N2}"/>
             <TextBlock Text="N3" />
             <TextBox IsReadOnly="True" Text="{Binding N3}"/>
-            <TextBlock Text="F" />
-            <TextBox IsReadOnly="True" Text="{Binding F}"/>
+            <!--<TextBlock Text="F" />
+            <TextBox IsReadOnly="True" Text="{Binding F}"/>-->
 
         </StackPanel>
         </ScrollViewer>

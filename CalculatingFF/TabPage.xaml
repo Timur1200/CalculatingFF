@@ -47,7 +47,7 @@
 
                 <Button Margin="20" Content="Подобрать" Click="SelectionClick"/>
                 <Button Margin="20" Content="Вычислить" Click="SolveClick"/>
-                <Button IsEnabled="False" Margin="20" Content="Экспорт в Excel" Click="Button_Click_Export_Excel"/>
+                <Button  Margin="20" Content="Экспорт в Excel" Click="ToExcelClick"/>
             </StackPanel>
         </ScrollViewer>
 
@@ -58,6 +58,8 @@
             <TextBox Text="{Binding C0}" Name="c0TextBox" ></TextBox>
             <TextBlock Text="C90" ></TextBlock>
             <TextBox IsReadOnly="True" Text="{Binding C90}" ></TextBox>
+            <TextBlock Text="R0" ></TextBlock>
+            <TextBox IsReadOnly="True" Text="{Binding R0}" ></TextBox>
             <TextBlock Text="R90" ></TextBlock>
             <TextBox IsReadOnly="True" Text="{Binding R90}" ></TextBox>
             <TextBlock Text="M1" />

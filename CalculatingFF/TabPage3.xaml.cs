@@ -37,5 +37,11 @@ namespace CalculatingFF
         {
             _Model3.Solve();
         }
+
+        private void ToExcelClick(object sender, RoutedEventArgs e)
+        {
+            ExcelHelper excelHelper = new ExcelHelper();
+            excelHelper.ToExcel3(_Model3);
+        }
     }
 }

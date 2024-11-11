@@ -9,10 +9,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Media.Media3D;
+using Excel = Microsoft.Office.Interop.Excel;
 
 namespace CalculatingFF
 {
-    public class Model : INotifyPropertyChanged
+    public class Model2 : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string prop = "")
@@ -20,12 +21,12 @@ namespace CalculatingFF
             if (PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs(prop));
         }
-        public Model()
+        public Model2()
         {
             A1 = 30;
             A2 = 60;
         }
-        public Model(bool Test)
+        public Model2(bool Test)
         {
             A1 = 30;
             A2 = 60;
@@ -48,6 +49,7 @@ namespace CalculatingFF
         public void Solve()
         {
             OnPropertyChanged("Tn1");
+            OnPropertyChanged("R0");
             OnPropertyChanged("Sn1");
             OnPropertyChanged("Tn2");
             OnPropertyChanged("Sn2");
@@ -165,6 +167,11 @@ namespace CalculatingFF
             //Console.WriteLine("Не удалось подобрать значение C0 с заданной точностью.");
         }
 
+        public void ToExcel()
+        {
+
+        }
+
         private double _s11;
         private double _s31;
         private double _s21;
@@ -191,6 +198,8 @@ namespace CalculatingFF
         public double S33 { get { return _s33; } set { _s33 = value; OnPropertyChanged("S33"); Solve(); } }
         public double C0 { get { return _c0; } set { _c0 = value; OnPropertyChanged("C0"); Solve(); } }
         public double Ksr { get { return _ksr; } set { _ksr = value; OnPropertyChanged("Ksr"); Solve(); } }
+        
+        // вычисляемые поля
         /// <summary>
         /// Альфа1 в радианах
         /// </summary>
@@ -208,5 +217,6 @@ namespace CalculatingFF
         public double M2 { get { return (S13 - S33) * (Math.Sin(2 * A3rad) - Ksr * Math.Cos(2 * A3rad)) + C0 - C90; } set { } }
         public double M3 { get { return (S13 + S33) * Ksr + C0 + C90; } set { } }
         public double F {get { return M1 * M1+M2*M2 - M3* M3; } set { } }
+        public double R0 { get { return Math.Atan(Ksr); } set { } }
     }
 }
