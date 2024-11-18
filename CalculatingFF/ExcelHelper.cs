@@ -38,7 +38,43 @@ namespace CalculatingFF
             }
         }
 
-       
+        public void ToExcel1(Model1 q)
+        {
+            // Путь к шаблону
+            string templatePath = Path.Combine(Directory.GetCurrentDirectory(), "excel1.xlsx");
+
+            // Словарь замен
+            var replacements = new Dictionary<string, double>
+            {
+                { "_b1", q.B },
+                { "_b6", q.B6 },
+                
+                { "_b8", q.B8 },
+                { "_b9", q.B9 },
+                { "_b10", q.B10 },
+                { "_b11", q.B11 },
+                { "_b12", q.B12 },
+                { "_b13", q.B13 },
+               
+               
+            };
+
+            // Диалоговое окно для выбора пути сохранения
+            var saveFileDialog = new Microsoft.Win32.SaveFileDialog
+            {
+                Filter = "Excel Files (*.xlsx)|*.xlsx",
+                DefaultExt = ".xlsx"
+            };
+
+            bool? result = saveFileDialog.ShowDialog();
+
+            if (result == true)
+            {
+                string outputPath = saveFileDialog.FileName;
+                ReplaceTemplateValues(templatePath, outputPath, replacements);
+                MessageBox.Show("Файл успешно создан!", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
 
         public void ToExcel2(Model2 q)
         {

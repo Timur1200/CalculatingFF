@@ -9,8 +9,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="excel1.xlsx" />
     <None Remove="excel2.xlsx" />
     <None Remove="excel3.xlsx" />
+    <None Remove="Resources\copyFile.png" />
+    <None Remove="Resources\excel.png" />
+    <None Remove="Resources\insert.png" />
+    <None Remove="Resources\stop.png" />
+    <None Remove="Resources\sync.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -26,16 +32,44 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="excel1.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="excel3.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="excel2.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
+    <Resource Include="Resources\copyFile.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\excel.png" />
+    <Resource Include="Resources\insert.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\stop.png" />
+    <Resource Include="Resources\sync.png" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="ClosedXML" Version="0.104.1" />
+    <PackageReference Include="MathNet.Numerics" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>

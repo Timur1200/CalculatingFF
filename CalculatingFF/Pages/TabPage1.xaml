@@ -1,0 +1,71 @@
+﻿<Page x:Class="CalculatingFF.Pages.TabPage1"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:CalculatingFF.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Loaded="PageLoaded"
+      Title="TabPage1">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Первая колона для входных значений  -->
+        <ScrollViewer>
+            <StackPanel Grid.Column="0" Margin="20">
+                <TextBlock FontSize="24" FontStyle="Oblique" Text="Входные данные" />
+                
+                <TextBlock Text="C0" />
+                <TextBox Text="{Binding B8}" x:Name="s31TextBox"/>
+                <TextBlock Text="C90" />
+                <TextBox  Text="{Binding B9}"/>
+                <TextBlock Text="ro0" />
+                <TextBox Text="{Binding B10}" x:Name="s23TextBox"/>
+
+
+                
+
+
+              
+
+                <TextBlock Text="ro90" />
+                <TextBox Text="{Binding B11}" x:Name="s13TextBox"/>
+                <TextBlock Text="SIG2" />
+                <TextBox Text="{Binding B13}" x:Name="s33TextBox" />
+                <TextBlock  Text="{Binding StringFormat=betta rad{0}, Path=B1}" />
+                <TextBox Text="{Binding B}" />
+
+
+                <Button Margin="20" Content="Подобрать" Click="SelectionClick"/>
+                
+                <Button Margin="20" Content="Подобрать (симплекс метод)" Click="SelectionSimplexClick"/>
+                <Button Margin="20" Content="Вычислить" Click="SolveClick"/>
+                <Button  Margin="20" Content="Экспорт в Excel" Click="ToExcelClick"/>
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- Вторая колона для выходных значений  -->
+        <StackPanel Grid.Column="1" Margin="20">
+            <TextBlock FontSize="24" FontStyle="Oblique" Text="Переменные" />
+            
+            <TextBlock Text="Psi"  />
+            <TextBox Text="{Binding B6}"/>
+            <TextBlock Text="SIG1" />
+            <TextBox Text="{Binding B12}" />
+            
+            <TextBlock FontSize="24" FontStyle="Oblique" Text="Результат" />
+            
+            <TextBlock Text="F1"></TextBlock>
+            <TextBox IsReadOnly="True" Text="{Binding D1}"  ></TextBox>
+            <TextBlock Text="F2" ></TextBlock>
+            <TextBox IsReadOnly="True" Text="{Binding D2}" ></TextBox>
+            
+            
+        </StackPanel>
+    </Grid>
+</Page>

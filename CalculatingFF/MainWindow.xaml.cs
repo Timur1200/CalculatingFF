@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Windows;
-
+using CalculatingFF.Pages;
 using Excel = Microsoft.Office.Interop.Excel;
 using System.Diagnostics;
 using System.Linq;
@@ -17,10 +17,16 @@ namespace CalculatingFF
         public MainWindow()
         {
             InitializeComponent();
-            WinFrame.NavigationService.Navigate(new TabPage());
-            TabFrame3.NavigationService.Navigate(new TabPage3());
-        }
 
+            TaskManager._this = new TaskManager();
+            TabFrame1.NavigationService.Navigate(new TabPage1());
+            TabFrame2.NavigationService.Navigate(new TabPage2());
+            TabFrame3.NavigationService.Navigate(new TabPage3());
+
+            Settings.SyncInputData = SyncToggleBtn.IsChecked.Value;
+
+        }
+        #region 
         private void Button_Click_Choose_Values(object sender, RoutedEventArgs e)
         {
             try
@@ -253,6 +259,21 @@ namespace CalculatingFF
 
             workbook.Close();
             app.Quit();
+        }
+        #endregion
+        private void StopClick(object sender, RoutedEventArgs e)
+        {
+            TaskManager._this.CancelAllTasks();
+        }
+
+        private void MasterToExcelClick(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void SyncToggleBtnClick(object sender, RoutedEventArgs e)
+        {                     
+                Settings.SyncInputData = !(Settings.SyncInputData);            
         }
     }
 

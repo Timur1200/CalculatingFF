@@ -17,21 +17,21 @@ using System.Windows.Shapes;
 namespace CalculatingFF
 {
 
-    public partial class TabPage : Page
+    public partial class TabPage2 : Page
     {
-        public TabPage()
+        public TabPage2()
         {
             InitializeComponent();
             _Model = new Model2(true);
             DataContext = _Model;
-          
+            
             
         }
 
-        Model2 _Model;
+        public static Model2 _Model;
         private void SelectionClick(object sender, RoutedEventArgs e)
         {
-            _Model.Selection();
+           TaskManager._this.RunTask(() => _Model.Selection());
         }
         private void SolveClick(object sender, RoutedEventArgs e)
         {
@@ -43,6 +43,14 @@ namespace CalculatingFF
         {
             ExcelHelper excelHelper = new ExcelHelper();
             excelHelper.ToExcel2(_Model);
+        }
+
+        private void PageLoaded(object sender, RoutedEventArgs e)
+        {
+            if (Settings.SyncInputData)
+            {
+                _Model = Settings.SyncModel(TabPage3._Model3, _Model);
+            }
         }
     }
 }

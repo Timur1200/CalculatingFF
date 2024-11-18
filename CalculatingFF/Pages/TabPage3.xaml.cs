@@ -26,11 +26,11 @@ namespace CalculatingFF
             _Model3 = new Model3(true); 
             DataContext = _Model3;
         }
-        Model3 _Model3 { get; set; }
+        public static Model3 _Model3 { get; set; }
 
         private void SelectionClick(object sender, RoutedEventArgs e)
         {
-            _Model3.Selection();
+           TaskManager._this.RunTask(()=> _Model3.Selection());
         }
 
         private void SolveClick(object sender, RoutedEventArgs e)
@@ -42,6 +42,14 @@ namespace CalculatingFF
         {
             ExcelHelper excelHelper = new ExcelHelper();
             excelHelper.ToExcel3(_Model3);
+        }
+
+        private void PageLoaded(object sender, RoutedEventArgs e)
+        {
+            if (Settings.SyncInputData)
+            {
+                _Model3 = Settings.SyncModel( TabPage2._Model, _Model3);
+            }
         }
     }
 }
