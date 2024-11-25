@@ -24,6 +24,7 @@ namespace CalculatingFF
             TabFrame3.NavigationService.Navigate(new TabPage3());
 
             Settings.SyncInputData = SyncToggleBtn.IsChecked.Value;
+            Settings.IsLogEnabled = LogToggleBtn.IsChecked.Value;
 
         }
         #region 
@@ -274,6 +275,11 @@ namespace CalculatingFF
         private void SyncToggleBtnClick(object sender, RoutedEventArgs e)
         {                     
                 Settings.SyncInputData = !(Settings.SyncInputData);            
+        }
+
+        private void LogToggleBtnClick(object sender, RoutedEventArgs e)
+        {
+            Settings.IsLogEnabled = !(Settings.IsLogEnabled);
         }
     }
 

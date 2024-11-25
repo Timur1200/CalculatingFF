@@ -15,6 +15,7 @@
     <None Remove="Resources\copyFile.png" />
     <None Remove="Resources\excel.png" />
     <None Remove="Resources\insert.png" />
+    <None Remove="Resources\logIcon.png" />
     <None Remove="Resources\stop.png" />
     <None Remove="Resources\sync.png" />
   </ItemGroup>
@@ -48,6 +49,7 @@
     <Resource Include="Resources\insert.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\logIcon.png" />
     <Resource Include="Resources\stop.png" />
     <Resource Include="Resources\sync.png" />
   </ItemGroup>

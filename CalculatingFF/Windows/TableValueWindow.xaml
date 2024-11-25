@@ -1,0 +1,49 @@
+﻿<Window x:Class="CalculatingFF.Windows.TableValueWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CalculatingFF.Windows"
+        mc:Ignorable="d"
+        Loaded="WindowLoaded"
+        Title="" Height="450" Width="600">
+    <Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Первая колона для входных значений  -->
+            <ScrollViewer>
+                <StackPanel Grid.Column="0" Margin="20">
+                    <TextBlock FontSize="24" FontStyle="Oblique" Text="Betta" />
+                    <DockPanel Margin="5" LastChildFill="False">
+                        <Button Click="AddBettaClick" Height="35" Width="50" Content="+" DockPanel.Dock="Left" />
+                        <Button Click="RemoveBettaClick" Height="35" Width="50" Content="-" DockPanel.Dock="Right" />
+                    </DockPanel>
+                    <TextBox Margin="5" x:Name="BettaTextBox" />
+                    <ListBox MinHeight="75" x:Name="BettaLBox"></ListBox>
+                    <Button Margin="10"  Content="Очистить" Click="ClearBettaClick" /> 
+
+                </StackPanel>
+            </ScrollViewer>
+
+            <ScrollViewer  Grid.Column="1">
+            <StackPanel  Margin="20">
+                <TextBlock FontSize="24" FontStyle="Oblique" Text="SIG2" />
+                    <DockPanel Margin="5" LastChildFill="False">
+                        <Button Click="AddSigClick" Height="35" Width="50" Content="+" DockPanel.Dock="Left" />
+                        <Button Click="RemoveSigClick" Height="35" Width="50" Content="-" DockPanel.Dock="Right" />
+                    </DockPanel>
+                    <TextBox Margin="5" x:Name="SigTextBox" />
+                    <ListBox MinHeight="75" x:Name="SigLBox"></ListBox>
+                    <Button Content="Очистить" Margin="10" Click="ClearSigClick" />
+
+
+
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+    </Grid>
+</Window>

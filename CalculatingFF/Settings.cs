@@ -10,8 +10,15 @@ namespace CalculatingFF
 {
     class Settings
     {
+        /// <summary>
+        /// синхронизация входных данных между 2 и 3 моделью
+        /// </summary>
         public static bool SyncInputData { get; set; }
-        
+        /// <summary>
+        /// Отвечает за создание окна с логами
+        /// </summary>
+        public static bool IsLogEnabled { get; set; }
+
         public static Model3 SyncModel(Model2 m2,Model3 m3) 
         {
             //m3 => m2

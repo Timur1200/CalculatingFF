@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -7,16 +8,27 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using MathNet.Numerics.LinearAlgebra;
+using MathNet.Numerics.Optimization;
+
+
 namespace CalculatingFF
 {
-    internal class Model1 : INotifyPropertyChanged
+    public class Model1 : INotifyPropertyChanged
     {
+        private void Base()
+        {
+            BettaList = new ObservableCollection<double> { 0, 35, 45, 60, 90 };
+            Sig2List = new ObservableCollection<double> {0,5,10,15,20 };
+            
+        }
         public Model1()
         {
-
+            Base();
         }
         public Model1(bool testData)
         {
+            Base();
             if (testData)
             {
                 B = 75;
@@ -67,249 +79,139 @@ namespace CalculatingFF
             OnPropertyChanged("D1");
             OnPropertyChanged("D2");
         }
-
         public void Selection()
         {
-            // Начальные значения для B6, B12
-            double[] initialValues = { B6, B12 };
+            double tolerance = 1e-8; // Допустимая погрешность для 4 знаков после запятой
+            double step = 0.0001; // Шаг изменения переменных для 4 знаков после запятой
 
-            // Ограничения для B6, B12
-            double[] lowerBounds = { 0, 0 };
-            double[] upperBounds = { 3, 100 }; // Укажите верхние границы для B12, если они известны
+            // Подбор значения B6
+            double b6Min = 0.00;
+            double b6Max = 3.00;
+            double b6Mid = (b6Min + b6Max) / 2;
 
-            // Вызов метода покоординатного спуска
-            double[] bestValues = CoordinateDescent(initialValues, lowerBounds, upperBounds);
-
-            // Применение лучших значений
-            B6 = bestValues[0];
-            B12 = bestValues[1];
-
-            Solve();
-        }
-
-        private double[] CoordinateDescent(double[] initialValues, double[] lowerBounds, double[] upperBounds)
-        {
-            int n = initialValues.Length;
-            double[] currentValues = (double[])initialValues.Clone();
-            double[] stepSizes = { 0.1, 0.1 }; // Начальные шаги для B6 и B12
-            double tolerance = 1e-6; // Допуск для остановки
-
-            while (true)
+            while (b6Max - b6Min > tolerance)
             {
-                bool improved = false;
+                B6 = b6Mid;
+                double d1Mid = D1;
+                double d2Mid = D2;
 
-                for (int i = 0; i < n; i++)
+                if (double.IsInfinity(d1Mid) || double.IsNaN(d1Mid) || double.IsInfinity(d2Mid) || double.IsNaN(d2Mid))
                 {
-                    double bestError = EvaluateError1(currentValues);
-                    double bestValue = currentValues[i];
-
-                    // Пробуем увеличить значение
-                    double newValue = Math.Min(currentValues[i] + stepSizes[i], upperBounds[i]);
-                    currentValues[i] = newValue;
-                    double newError = EvaluateError1(currentValues);
-
-                    if (newError < bestError)
-                    {
-                        bestError = newError;
-                        bestValue = newValue;
-                        improved = true;
-                    }
-                    else
-                    {
-                        // Пробуем уменьшить значение
-                        newValue = Math.Max(currentValues[i] - 2 * stepSizes[i], lowerBounds[i]);
-                        currentValues[i] = newValue;
-                        newError = EvaluateError1(currentValues);
-
-                        if (newError < bestError)
-                        {
-                            bestError = newError;
-                            bestValue = newValue;
-                            improved = true;
-                        }
-                        else
-                        {
-                            // Возвращаемся к лучшему значению
-                            currentValues[i] = bestValue;
-                        }
-                    }
-
-                    // Обновляем шаг
-                    stepSizes[i] *= 0.5;
+                    b6Max = b6Mid;
+                    b6Mid = (b6Min + b6Max) / 2;
+                    continue;
                 }
 
-                // Проверка условия остановки
-                if (!improved || stepSizes.Max() < tolerance)
+                B6 = b6Mid - step;
+                double d1Left = D1;
+                double d2Left = D2;
+
+                if (double.IsInfinity(d1Left) || double.IsNaN(d1Left) || double.IsInfinity(d2Left) || double.IsNaN(d2Left))
+                {
+                    b6Max = b6Mid;
+                    b6Mid = (b6Min + b6Max) / 2;
+                    continue;
+                }
+
+                B6 = b6Mid + step;
+                double d1Right = D1;
+                double d2Right = D2;
+
+                if (double.IsInfinity(d1Right) || double.IsNaN(d1Right) || double.IsInfinity(d2Right) || double.IsNaN(d2Right))
+                {
+                    b6Min = b6Mid;
+                    b6Mid = (b6Min + b6Max) / 2;
+                    continue;
+                }
+
+                double errorMid = Math.Abs(d1Mid) + Math.Abs(d2Mid);
+                double errorLeft = Math.Abs(d1Left) + Math.Abs(d2Left);
+                double errorRight = Math.Abs(d1Right) + Math.Abs(d2Right);
+
+                if (errorLeft < errorMid)
+                {
+                    b6Max = b6Mid;
+                }
+                else if (errorRight < errorMid)
+                {
+                    b6Min = b6Mid;
+                }
+                else
+                {
                     break;
+                }
+
+                b6Mid = (b6Min + b6Max) / 2;
             }
 
-            return currentValues;
-        }
+            B6 = Math.Round(b6Mid, 4); // Округляем до 4 знаков после запятой
 
-        private double EvaluateError1(double[] values)
-        {
-            B6 = values[0];
-            B12 = values[1];
+            // Подбор значения B12
+            double b12Min = 0.00;
+            double b12Max = 1e308; // Максимальное значение, чтобы избежать переполнения
+            double b12Mid = (b12Min + b12Max) / 2;
 
-            Solve();
+            while (b12Max - b12Min > tolerance)
+            {
+                B12 = Math.Round(b12Mid, 4); // Округляем до 4 знаков после запятой
+                double d1Mid = D1;
+                double d2Mid = D2;
 
-            return Math.Abs(D1) + Math.Abs(D2);
+                if (double.IsInfinity(d1Mid) || double.IsNaN(d1Mid) || double.IsInfinity(d2Mid) || double.IsNaN(d2Mid))
+                {
+                    b12Max = b12Mid;
+                    b12Mid = (b12Min + b12Max) / 2;
+                    continue;
+                }
+
+                B12 = Math.Round(b12Mid - step, 4); // Округляем до 4 знаков после запятой
+                double d1Left = D1;
+                double d2Left = D2;
+
+                if (double.IsInfinity(d1Left) || double.IsNaN(d1Left) || double.IsInfinity(d2Left) || double.IsNaN(d2Left))
+                {
+                    b12Max = b12Mid;
+                    b12Mid = (b12Min + b12Max) / 2;
+                    continue;
+                }
+
+                B12 = Math.Round(b12Mid + step, 4); // Округляем до 4 знаков после запятой
+                double d1Right = D1;
+                double d2Right = D2;
+
+                if (double.IsInfinity(d1Right) || double.IsNaN(d1Right) || double.IsInfinity(d2Right) || double.IsNaN(d2Right))
+                {
+                    b12Min = b12Mid;
+                    b12Mid = (b12Min + b12Max) / 2;
+                    continue;
+                }
+
+                double errorMid = Math.Abs(d1Mid) + Math.Abs(d2Mid);
+                double errorLeft = Math.Abs(d1Left) + Math.Abs(d2Left);
+                double errorRight = Math.Abs(d1Right) + Math.Abs(d2Right);
+
+                if (errorLeft < errorMid)
+                {
+                    b12Max = b12Mid;
+                }
+                else if (errorRight < errorMid)
+                {
+                    b12Min = b12Mid;
+                }
+                else
+                {
+                    break;
+                }
+
+                b12Mid = (b12Min + b12Max) / 2;
+            }
+
+            B12 = Math.Round(b12Mid, 4); // Округляем до 4 знаков после запятой
         }
 
         public void SelectionSimplex()
         {
-            // Начальные значения для B6, B12
-            double[] initialValues = { B6, B12 };
 
-            // Ограничения для B6, B12
-            double[] lowerBounds = { 0, 0 };
-            double[] upperBounds = { 3, 100 }; // Укажите верхние границы для B12, если они известны
-
-            // Вызов метода Нелдера-Мида
-            double[] bestValues = NelderMead(initialValues, lowerBounds, upperBounds);
-
-            // Применение лучших значений
-            B6 = bestValues[0];
-            B12 = bestValues[1];
-
-            Solve();
-        }
-
-        private double[] NelderMead(double[] initialValues, double[] lowerBounds, double[] upperBounds)
-        {
-            int n = initialValues.Length;
-            double[][] simplex = new double[n + 1][];
-            double[] errors = new double[n + 1];
-
-            // Инициализация симплекса
-            for (int i = 0; i < n + 1; i++)
-            {
-                simplex[i] = new double[n];
-                for (int j = 0; j < n; j++)
-                {
-                    if (i == j)
-                        simplex[i][j] = initialValues[j] + 0.1 * (upperBounds[j] - lowerBounds[j]);
-                    else
-                        simplex[i][j] = initialValues[j];
-                }
-                errors[i] = EvaluateError(simplex[i]);
-            }
-
-            // Параметры метода Нелдера-Мида
-            double alpha = 1; // Отражение
-            double beta = 0.5; // Сжатие
-            double gamma = 2; // Растяжение
-            double sigma = 0.5; // Сжатие всего симплекса
-
-            for (int iteration = 0; iteration < 1000; iteration++)
-            {
-                // Сортировка симплекса по ошибке
-                Array.Sort(errors, simplex);
-
-                // Вычисление центра тяжести без худшей точки
-                double[] centroid = new double[n];
-                for (int i = 0; i < n; i++)
-                {
-                    centroid[i] = 0;
-                    for (int j = 0; j < n; j++)
-                        centroid[i] += simplex[j][i];
-                    centroid[i] /= n;
-                }
-
-                // Отражение
-                double[] reflected = new double[n];
-                for (int i = 0; i < n; i++)
-                    reflected[i] = centroid[i] + alpha * (centroid[i] - simplex[n][i]);
-                double reflectedError = EvaluateError(reflected);
-
-                if (reflectedError < errors[0])
-                {
-                    // Растяжение
-                    double[] expanded = new double[n];
-                    for (int i = 0; i < n; i++)
-                        expanded[i] = centroid[i] + gamma * (reflected[i] - centroid[i]);
-                    double expandedError = EvaluateError(expanded);
-
-                    if (expandedError < reflectedError)
-                    {
-                        simplex[n] = expanded;
-                        errors[n] = expandedError;
-                    }
-                    else
-                    {
-                        simplex[n] = reflected;
-                        errors[n] = reflectedError;
-                    }
-                }
-                else if (reflectedError < errors[n - 1])
-                {
-                    simplex[n] = reflected;
-                    errors[n] = reflectedError;
-                }
-                else
-                {
-                    // Сжатие
-                    if (reflectedError < errors[n])
-                    {
-                        double[] contracted = new double[n];
-                        for (int i = 0; i < n; i++)
-                            contracted[i] = centroid[i] + beta * (reflected[i] - centroid[i]);
-                        double contractedError = EvaluateError(contracted);
-
-                        if (contractedError < reflectedError)
-                        {
-                            simplex[n] = contracted;
-                            errors[n] = contractedError;
-                        }
-                        else
-                        {
-                            // Сжатие всего симплекса
-                            for (int i = 1; i < n + 1; i++)
-                            {
-                                for (int j = 0; j < n; j++)
-                                    simplex[i][j] = simplex[0][j] + sigma * (simplex[i][j] - simplex[0][j]);
-                                errors[i] = EvaluateError(simplex[i]);
-                            }
-                        }
-                    }
-                    else
-                    {
-                        double[] contracted = new double[n];
-                        for (int i = 0; i < n; i++)
-                            contracted[i] = centroid[i] + beta * (simplex[n][i] - centroid[i]);
-                        double contractedError = EvaluateError(contracted);
-
-                        if (contractedError < errors[n])
-                        {
-                            simplex[n] = contracted;
-                            errors[n] = contractedError;
-                        }
-                        else
-                        {
-                            // Сжатие всего симплекса
-                            for (int i = 1; i < n + 1; i++)
-                            {
-                                for (int j = 0; j < n; j++)
-                                    simplex[i][j] = simplex[0][j] + sigma * (simplex[i][j] - simplex[0][j]);
-                                errors[i] = EvaluateError(simplex[i]);
-                            }
-                        }
-                    }
-                }
-            }
-
-            // Возвращаем лучшую точку
-            return simplex[0];
-        }
-
-        private double EvaluateError(double[] values)
-        {
-            B6 = values[0];
-            B12 = values[1];
-
-            Solve();
-
-            return Math.Abs(D1) + Math.Abs(D2);
         }
 
         double COS(double c)
@@ -320,6 +222,9 @@ namespace CalculatingFF
         {
             return Math.Sin(c);
         }
+        public ObservableCollection<double> BettaList;
+        public ObservableCollection<double> Sig2List;
+
         private double _b;
         private double b6;
         
@@ -333,13 +238,33 @@ namespace CalculatingFF
         /// Бэта в градусах
         /// </summary>
         public double B { get { return _b; }set { _b = value;OnPropertyChanged("B");OnPropertyChanged("B1");Solve(); } }
+        /// <summary>
+        /// Psi
+        /// </summary>
         public double B6 { get { return b6; } set { b6 = value; OnPropertyChanged("B6"); Solve(); } }
-        
+        /// <summary>
+        /// C
+        /// </summary>
         public double B8 { get { return b8; } set { b8 = value; OnPropertyChanged("B8"); Solve(); } }
+        /// <summary>
+        /// C90
+        /// </summary>
         public double B9 { get { return b9; } set { b9 = value; OnPropertyChanged("B9"); Solve(); } }
+        /// <summary>
+        /// Ro0
+        /// </summary>
         public double B10 { get { return b10; } set {b10 = value; OnPropertyChanged("B10"); Solve(); } }
+        /// <summary>
+        /// Ro90
+        /// </summary>
         public double B11 { get { return b11; } set { b11 = value; OnPropertyChanged("11"); Solve(); } }
+        /// <summary>
+        /// Sig1
+        /// </summary>
         public double B12 { get { return b12; } set { b12 = value; OnPropertyChanged("B12"); Solve(); } }
+        /// <summary>
+        /// Sig3
+        /// </summary>
         public double B13 { get { return b13; } set { b13 = value; OnPropertyChanged("B13"); Solve(); } }
         /// <summary>
         /// Бэта в Радианах

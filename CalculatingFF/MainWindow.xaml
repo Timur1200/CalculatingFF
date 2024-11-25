@@ -32,6 +32,9 @@
                 <Image Source="..\..\Resources\sync.png"></Image>
             </ToggleButton>
             <Separator />
+            <ToggleButton IsChecked="True"  Name="LogToggleBtn" Click="LogToggleBtnClick" ToolTip="Лог отчёт вычислений">
+                <Image Source="..\..\Resources\logIcon.png"></Image>
+            </ToggleButton>
             <Button Visibility="Collapsed" ToolTip="Скопировать входные значения с текущей страницы" >
                 <Image Source="..\..\Resources\insert.png" />
             </Button>

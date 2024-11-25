@@ -19,7 +19,7 @@
             <Setter Property="Foreground" Value="#333333" />
             <Setter Property="BorderBrush" Value="#CCCCCC" />
             <Setter Property="BorderThickness" Value="1" />
-            <Setter Property="Padding" Value="10" />
+            <Setter Property="Padding" Value="3" />
             <Setter Property="FontFamily" Value="Segoe UI" />
             <Setter Property="FontSize" Value="14" />
             <Setter Property="Cursor" Value="Hand" />

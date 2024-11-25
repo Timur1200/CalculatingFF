@@ -5,6 +5,7 @@ using System.Windows;
 using Microsoft.Win32;
 //using Excel = Microsoft.Office.Interop.Excel;
 using ClosedXML.Excel;
+using System.Linq;
 
 namespace CalculatingFF
 {
@@ -38,26 +39,23 @@ namespace CalculatingFF
             }
         }
 
-        public void ToExcel1(Model1 q)
+        public void ToExcel1(Model1 q, double[,] nums)
         {
             // Путь к шаблону
             string templatePath = Path.Combine(Directory.GetCurrentDirectory(), "excel1.xlsx");
 
             // Словарь замен
             var replacements = new Dictionary<string, double>
-            {
-                { "_b1", q.B },
-                { "_b6", q.B6 },
-                
-                { "_b8", q.B8 },
-                { "_b9", q.B9 },
-                { "_b10", q.B10 },
-                { "_b11", q.B11 },
-                { "_b12", q.B12 },
-                { "_b13", q.B13 },
-               
-               
-            };
+    {
+        { "_b1", q.B },
+        { "_b6", q.B6 },
+        { "_b8", q.B8 },
+        { "_b9", q.B9 },
+        { "_b10", q.B10 },
+        { "_b11", q.B11 },
+        { "_b12", q.B12 },
+        { "_b13", q.B13 },
+    };
 
             // Диалоговое окно для выбора пути сохранения
             var saveFileDialog = new Microsoft.Win32.SaveFileDialog
@@ -71,8 +69,60 @@ namespace CalculatingFF
             if (result == true)
             {
                 string outputPath = saveFileDialog.FileName;
+
+                // Замена значений в шаблоне
                 ReplaceTemplateValues(templatePath, outputPath, replacements);
+
+                // Заполнение таблицы значениями из nums
+                if (nums != null) FillTable(outputPath, q, nums);
+
+
                 MessageBox.Show("Файл успешно создан!", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
+
+
+
+        private void FillTable(string outputPath, Model1 q, double[,] nums)
+        {
+            using (var workbook = new XLWorkbook(outputPath))
+            {
+                var worksheet = workbook.Worksheet(1); // Предполагаем, что таблица находится на первом листе
+
+                // Определяем начальную ячейку для верхней шапки (E15)
+                int startRowHeader = 15;
+                int startColHeader = 4; // E
+
+                // Определяем начальную ячейку для левой шапки (C16)
+                int startRowLeftHeader = 16;
+                int startColLeftHeader = 3; // C
+
+                // Определяем начальную ячейку для значений таблицы (D16)
+                int startRowValues = 16;
+                int startColValues = 4; // D
+
+                // Заполняем верхнюю шапку таблицы значениями из _Model.Sig2List
+                for (int col = 0; col < q.Sig2List.Count; col++)
+                {
+                    worksheet.Cell(startRowHeader, startColHeader + col).Value = q.Sig2List[col];
+                }
+
+                // Заполняем левую шапку таблицы значениями из _Model.BettaList
+                for (int row = 0; row < q.BettaList.Count; row++)
+                {
+                    worksheet.Cell(startRowLeftHeader + row, startColLeftHeader).Value = q.BettaList[row];
+                }
+
+                // Заполняем значения таблицы
+                for (int row = 0; row < q.BettaList.Count; row++)
+                {
+                    for (int col = 0; col < q.Sig2List.Count; col++)
+                    {
+                        worksheet.Cell(startRowValues + row, startColValues + col).Value = nums[row, col];
+                    }
+                }
+
+                workbook.Save();
             }
         }
 

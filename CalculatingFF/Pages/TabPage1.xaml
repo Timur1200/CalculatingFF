@@ -35,17 +35,23 @@
 
                 <TextBlock Text="ro90" />
                 <TextBox Text="{Binding B11}" x:Name="s13TextBox"/>
-                <TextBlock Text="SIG2" />
+                <TextBlock Text="SIG3" />
                 <TextBox Text="{Binding B13}" x:Name="s33TextBox" />
                 <TextBlock  Text="{Binding StringFormat=betta rad{0}, Path=B1}" />
                 <TextBox Text="{Binding B}" />
 
-
-                <Button Margin="20" Content="Подобрать" Click="SelectionClick"/>
                 
-                <Button Margin="20" Content="Подобрать (симплекс метод)" Click="SelectionSimplexClick"/>
-                <Button Margin="20" Content="Вычислить" Click="SolveClick"/>
-                <Button  Margin="20" Content="Экспорт в Excel" Click="ToExcelClick"/>
+                <Button Margin="10" Content="Подобрать" Click="SelectionClick"/>
+                
+                <Button Visibility="Collapsed"  Margin="10" Content="Подобрать (симплекс метод)" Click="SelectionSimplexClick"/>
+                <Button Margin="10" Content="Вычислить" Click="SolveClick"/>
+                
+                <DockPanel Margin="5" LastChildFill="False">
+                    <Button DockPanel.Dock="Left" Click="TableClick"  Content="Таблица" />
+                    <CheckBox Name="TableCBox" IsChecked="True" FontSize="14" Content="Расчёт таблицы" DockPanel.Dock="Right" />
+                </DockPanel>
+                
+                <Button  Margin="10" Content="Экспорт в Excel" Click="ToExcelClick"/>
             </StackPanel>
         </ScrollViewer>
 

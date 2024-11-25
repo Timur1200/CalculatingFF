@@ -167,10 +167,7 @@ namespace CalculatingFF
             //Console.WriteLine("Не удалось подобрать значение C0 с заданной точностью.");
         }
 
-        public void ToExcel()
-        {
-
-        }
+        
 
         private double _s11;
         private double _s31;
