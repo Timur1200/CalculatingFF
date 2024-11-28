@@ -24,8 +24,7 @@
                 <TextBox Text="{Binding B8}" x:Name="s31TextBox"/>
                 <TextBlock Text="C90" />
                 <TextBox  Text="{Binding B9}"/>
-                <TextBlock Text="ro0" />
-                <TextBox Text="{Binding B10}" x:Name="s23TextBox"/>
+                
 
 
                 
@@ -43,7 +42,7 @@
                 
                 <Button Margin="10" Content="Подобрать" Click="SelectionClick"/>
                 
-                <Button Visibility="Collapsed"  Margin="10" Content="Подобрать (симплекс метод)" Click="SelectionSimplexClick"/>
+                <Button x:Name="BtnSelection2" Visibility="Visible"  Margin="10" Content="Подобрать 2" Click="SelectionSimplexClick"/>
                 <Button Margin="10" Content="Вычислить" Click="SolveClick"/>
                 
                 <DockPanel Margin="5" LastChildFill="False">
@@ -58,11 +57,14 @@
         <!-- Вторая колона для выходных значений  -->
         <StackPanel Grid.Column="1" Margin="20">
             <TextBlock FontSize="24" FontStyle="Oblique" Text="Переменные" />
-            
-            <TextBlock Text="Psi"  />
-            <TextBox Text="{Binding B6}"/>
+            <ComboBox SelectionChanged="PoleComboBox_SelectionChanged" Name="PoleComboBox" ></ComboBox>
+            <TextBlock Text="ro0" />
+            <TextBox Text="{Binding B10}" x:Name="s23TextBox"/>
             <TextBlock Text="SIG1" />
             <TextBox Text="{Binding B12}" />
+            <TextBlock Text="Psi"  />
+            <TextBox Text="{Binding B6}"/>
+            
             
             <TextBlock FontSize="24" FontStyle="Oblique" Text="Результат" />
             

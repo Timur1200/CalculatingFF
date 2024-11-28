@@ -65,12 +65,6 @@
             <TextBox IsReadOnly="True" Text="{Binding R0}" ></TextBox>
             <TextBlock Text="R90" ></TextBlock>
             <TextBox IsReadOnly="True" Text="{Binding R90}" ></TextBox>
-            <TextBlock Text="M1" />
-            <TextBox IsReadOnly="True"  Text="{Binding M1}"/>
-            <TextBlock Text="M2" />
-            <TextBox IsReadOnly="True" Text="{Binding M2}"/>
-            <TextBlock Text="M3" />
-            <TextBox IsReadOnly="True" Text="{Binding M3}"/>
             <TextBlock Text="F" />
             <TextBox Text="{Binding F}" IsReadOnly="True" />
         </StackPanel>

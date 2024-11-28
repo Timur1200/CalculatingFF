@@ -63,12 +63,11 @@ namespace CalculatingFF
             }
             
         }
-
         public void Selection()
         {
-            double tolerance = 0.001; // Допустимая погрешность
-            int maxIterations = 1000; // Максимальное количество итераций
-            double stepSize = 0.1; // Шаг изменения переменных
+            double tolerance = 0.01; // Допустимая погрешность
+            int maxIterations = 2200; // Максимальное количество итераций
+            double stepSize = 0.01; // Шаг изменения переменных с точностью до двух знаков после запятой
 
             for (int i = 0; i < maxIterations; i++)
             {
@@ -83,6 +82,14 @@ namespace CalculatingFF
                 // Изменяем K
                 double oldK = K;
                 K += stepSize;
+                if (K > 1.00) // Проверка на выход за пределы диапазона
+                {
+                    K = oldK - stepSize;
+                    if (K < 0.00) // Проверка на выход за пределы диапазона
+                    {
+                        K = oldK;
+                    }
+                }
                 Solve();
                 double newDiff = Math.Abs(Z1 - Z2);
 
@@ -95,6 +102,14 @@ namespace CalculatingFF
                 {
                     // Ухудшение, меняем направление
                     K = oldK - stepSize;
+                    if (K < 0.00) // Проверка на выход за пределы диапазона
+                    {
+                        K = oldK + stepSize;
+                        if (K > 1.00) // Проверка на выход за пределы диапазона
+                        {
+                            K = oldK;
+                        }
+                    }
                     Solve();
                     newDiff = Math.Abs(Z1 - Z2);
 
@@ -114,6 +129,10 @@ namespace CalculatingFF
                 // Изменяем T1
                 double oldT1 = T1;
                 T1 += stepSize;
+                if (T1 < 0.00) // Проверка на неотрицательность
+                {
+                    T1 = oldT1;
+                }
                 Solve();
                 newDiff = Math.Abs(Z1 - Z2);
 
@@ -126,6 +145,10 @@ namespace CalculatingFF
                 {
                     // Ухудшение, меняем направление
                     T1 = oldT1 - stepSize;
+                    if (T1 < 0.00) // Проверка на неотрицательность
+                    {
+                        T1 = oldT1;
+                    }
                     Solve();
                     newDiff = Math.Abs(Z1 - Z2);
 
@@ -146,6 +169,8 @@ namespace CalculatingFF
                 stepSize *= 0.9;
             }
         }
+
+
 
         public void Solve()
         {
@@ -190,7 +215,7 @@ namespace CalculatingFF
         public double C0 { get { return _c0; } set { _c0 = value; OnPropertyChanged("C0"); Solve(); } }
         public double C90 { get { return _c90; } set { _c90 = value; OnPropertyChanged("C90"); Solve(); } }
         //подбираемые значения
-        public double K { get { return _k; } set { _k = value; OnPropertyChanged("K"); Solve(); } }
+        public double K { get { return _k; } set { _k = value; OnPropertyChanged("K"); OnPropertyChanged("R90"); Solve(); } }
         public double T1 { get { return _t1; } set { _t1 = value; OnPropertyChanged("T1"); Solve(); } }
         /// <summary>
         /// Альфа1 в радианах
@@ -205,6 +230,7 @@ namespace CalculatingFF
         public double N1 {get { return Math.Sin(2 * A1rad) - K * Math.Cos(2 * A1rad); } set { } }
         public double N2 { get { return Math.Sin(2 * A2rad) - K * Math.Cos(2 * A2rad); } set { } }
         public double N3 { get { return Math.Sin(2 * A3rad) - K * Math.Cos(2 * A3rad); } set { } }
+        public double R90 { get { return Math.Atan(K); } set { } }
         public double T2 { get {return Math.Sqrt((S11 - S31) * (S11 - S31) * P1 * P1 + ((S11 - S31) * N1 + T1) * ((S11 - S31) * N1 + T1))
                     -  (S11 + S31) * K; } set { } }
        

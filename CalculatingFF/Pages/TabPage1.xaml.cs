@@ -28,14 +28,20 @@ namespace CalculatingFF.Pages
 
             _Model = new Model1(true);
             DataContext = _Model;
-            
+            PoleComboBox.Items.Add("SIG1");
+            PoleComboBox.Items.Add("ro0");
+            PoleComboBox.SelectedIndex = 0;
+
         }
         public static Model1 _Model;
         TableValueWindow _TableValueWindow { get; set; }
-
+        private void PageLoaded(object sender, RoutedEventArgs e)
+        {
+            BtnSelection2.Visibility = Visibility.Collapsed;
+        }
         private async void SelectionTableAsync()
         {
-            bool IsLog = Settings.IsLogEnabled;
+           
             List<string> logList = new List<string>();
             logList.Add("Таблица SIG");
             int rowBetta = _Model.BettaList.Count;
@@ -44,16 +50,16 @@ namespace CalculatingFF.Pages
             for (int i = 0; i < rowBetta; i++)
             {
                 _Model.B = _Model.BettaList[i];
-                if (IsLog) logList.Add($" \n");
+                if (Settings.IsLogEnabled) logList.Add($" \n");
                 for (int j = 0; j < colSig; j++)
                 {
                     _Model.B13 = _Model.Sig2List[j];
-                    _Model.Selection();
+                    _Model.Selection(_isRo0);
                     nums[i, j] = _Model.B12;
-                    if (IsLog) logList.Add($" SIG={Math.Round(nums[i, j],2)} \t F1={Math.Round(_Model.D1,2)} \t F2={Math.Round(_Model.D2,2)};"  );
+                    if (Settings.IsLogEnabled) logList.Add($" SIG={Math.Round(nums[i, j],2)} \t PSI={_Model.B6} \t F1={Math.Round(_Model.D1,2)} \t F2={Math.Round(_Model.D2,2)};"  );
                 }
             }
-            if (IsLog)
+            if (Settings.IsLogEnabled)
             {
                 Application.Current.Dispatcher.Invoke(() =>
                 {
@@ -68,7 +74,7 @@ namespace CalculatingFF.Pages
         private async void SelectionClick(object sender, RoutedEventArgs e)
         {
             if (TableCBox.IsChecked == false)
-            await TaskManager._this.RunTask(() => _Model.Selection());
+            await TaskManager._this.RunTask(() => _Model.Selection(_isRo0));
             else
             {
                 await TaskManager._this.RunTask(() => SelectionTableAsync());
@@ -90,36 +96,35 @@ namespace CalculatingFF.Pages
         double[,] nums;
         private async void SelectionSimplexTableAsync()
         {
-            bool IsLog = true;
-
+           
+           
+            List<string> logList = new List<string>();
+            logList.Add("Таблица SIG");
             int rowBetta = _Model.BettaList.Count;
             int colSig = _Model.Sig2List.Count;
             nums = new double[rowBetta, colSig];
             for (int i = 0; i < rowBetta; i++)
             {
                 _Model.B = _Model.BettaList[i];
+                if (Settings.IsLogEnabled) logList.Add($" \n");
                 for (int j = 0; j < colSig; j++)
                 {
                     _Model.B13 = _Model.Sig2List[j];
                     _Model.SelectionSimplex();
                     nums[i, j] = _Model.B12;
+                    if (Settings.IsLogEnabled) logList.Add($" SIG={Math.Round(nums[i, j], 2)} PSI={_Model.B6} \t \t F1={Math.Round(_Model.D1, 2)} \t F2={Math.Round(_Model.D2, 2)};");
 
                 }
             }
-
-
-            return;
-            string testString = "";
-            for (int i = 0; i < rowBetta; i++)
+            if (Settings.IsLogEnabled)
             {
-                testString = testString + "\n";
-                for (int j = 0; j < colSig; j++)
+                Application.Current.Dispatcher.Invoke(() =>
                 {
-                    testString = testString + ($" {nums[i, j]} ");
-
-                }
+                    LogWindow logWindow;
+                    logWindow = new LogWindow(logList);
+                    logWindow.Show();
+                });
             }
-            MessageBox.Show(testString);
         }
 
         private async void SelectionSimplexClick(object sender, RoutedEventArgs e)
@@ -134,15 +139,24 @@ namespace CalculatingFF.Pages
             }
         }
 
-        private void PageLoaded(object sender, RoutedEventArgs e)
-        {
-            
-        }
+        
 
         private void TableClick(object sender, RoutedEventArgs e)
         {
             _TableValueWindow = new TableValueWindow();
             _TableValueWindow.ShowDialog();
+        }
+        bool _isRo0 = false;
+        private void PoleComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (PoleComboBox.SelectedIndex == 0)
+            {//SIG1
+                _isRo0 = false;
+            }
+            else if (PoleComboBox.SelectedIndex == 1)
+            {//ro0
+                _isRo0 = true;
+            }
         }
     }
 }

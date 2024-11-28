@@ -77,12 +77,14 @@
             <TextBox Text="{Binding _C0}" IsReadOnly="True" />
             <TextBlock Text="C90" />
             <TextBox Text="{Binding _C90}" IsReadOnly="True" />
-            <TextBlock Text="N1" ></TextBlock>
+                <TextBlock Text="R90" />
+                <TextBox Text="{Binding R90}" IsReadOnly="True" />
+                <!--<TextBlock Text="N1" ></TextBlock>
             <TextBox IsReadOnly="True" Text="{Binding N1}" ></TextBox>
             <TextBlock Text="N2" />
             <TextBox IsReadOnly="True"  Text="{Binding N2}"/>
             <TextBlock Text="N3" />
-            <TextBox IsReadOnly="True" Text="{Binding N3}"/>
+            <TextBox IsReadOnly="True" Text="{Binding N3}"/>-->
             <!--<TextBlock Text="F" />
             <TextBox IsReadOnly="True" Text="{Binding F}"/>-->
 

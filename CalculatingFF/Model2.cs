@@ -61,55 +61,10 @@ namespace CalculatingFF
             OnPropertyChanged("M3");
             OnPropertyChanged("F");
         }
-        /// <summary>
-        /// Подбор значений для F->0 при С0
-        /// </summary>
-        public void Selection(bool b)
-        {
-            
-            
-            List<double> list = new List<double>();
-           
-            int j = 0;
-            while (Math.Abs(F)>200)
-            {
-                C0 = C0 + 1;
-                j++;
-                if (j > 1000)
-                {
-                    MessageBox.Show("Не получилось");
-                    return;
-                }
-            }
-            
-            
-            list.Add(F);
-            C0 = C0 + 0.01;
-            list.Add(F);
-            int i = 0;
-            i++;
-            j = 0;
-            do
-            {
-                Trace.WriteLine(Math.Abs(list[i - 1]) + " and " + Math.Abs(list[i]));
-                C0 = C0 + 0.01;
-                list.Add(F);
-                i++;
-                j++;
-                if (j > 1000)
-                {
-                    
-                    MessageBox.Show("Не получилось.");
-                    return;
-                }
-            }
-            while (Math.Abs(list[i-1]) > Math.Abs(list[i]));
-            C0 = C0 - 0.01; 
+        
+        
 
-            Solve();
-        }
-
-        public void Selection()
+        public void OldSelection()
         {
             double tolerance = 0.001; // Допустимая погрешность
             double lowerBound = -100; // Нижняя граница для C0
@@ -166,8 +121,76 @@ namespace CalculatingFF
 
             //Console.WriteLine("Не удалось подобрать значение C0 с заданной точностью.");
         }
+        /// <summary>
+        /// Подбор значений для F->0 при С0
+        /// </summary>
+        public void Selection()
+        {
+            double tolerance = 0.001; // Допустимая погрешность
+            double lowerBound = 0; // Нижняя граница для C0 (неотрицательное значение)
+            double upperBound = 100;  // Верхняя граница для C0
+            int maxIterations = 1000; // Максимальное количество итераций
 
-        
+            double goldenRatio = (Math.Sqrt(5) - 1) / 2; // Золотое сечение
+
+            double a = lowerBound;
+            double b = upperBound;
+
+            double c = b - (b - a) * goldenRatio;
+            double d = a + (b - a) * goldenRatio;
+
+            C0 = c;
+            Solve();
+            double fc = F;
+
+            C0 = d;
+            Solve();
+            double fd = F;
+
+            for (int i = 0; i < maxIterations; i++)
+            {
+                if (Math.Abs(fc) < Math.Abs(fd))
+                {
+                    b = d;
+                    d = c;
+                    fd = fc;
+                    c = b - (b - a) * goldenRatio;
+                    C0 = c;
+                    Solve();
+                    fc = F;
+                }
+                else
+                {
+                    a = c;
+                    c = d;
+                    fc = fd;
+                    d = a + (b - a) * goldenRatio;
+                    C0 = d;
+                    Solve();
+                    fd = F;
+                }
+
+                // Проверка условия C90 < C0
+                if (C0 <= C90)
+                {
+                    a = C0;
+                    c = b - (b - a) * goldenRatio;
+                    C0 = c;
+                    Solve();
+                    fc = F;
+                }
+
+                if (Math.Abs(b - a) < tolerance)
+                {
+                    C0 = (a + b) / 2;
+                    Solve();
+                    Console.WriteLine($"Значение подобранно: C0 = {C0}, F = {F}");
+                    return;
+                }
+            }
+
+            Console.WriteLine("Не удалось подобрать значение C0 с заданной точностью.");
+        }
 
         private double _s11;
         private double _s31;

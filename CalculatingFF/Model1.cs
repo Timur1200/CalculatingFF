@@ -44,6 +44,8 @@ namespace CalculatingFF
             }
           
         }
+        
+
         public string TestPrint()
         {
             string msg = $"r0= {B2} \n S={B3} \n S`={B4} \n K={B5} \n k={B14} \n c={B15} \n r0={B16} \n n1={B17} \n n2={B18} \n m1={B19} \n xsi={B20} \n F1={D1} \n F2={D2} \n p={D4}";
@@ -81,137 +83,95 @@ namespace CalculatingFF
         }
         public void Selection()
         {
-            double tolerance = 1e-8; // Допустимая погрешность для 4 знаков после запятой
-            double step = 0.0001; // Шаг изменения переменных для 4 знаков после запятой
+            double step = 0.05;
+            double tolerance = 0.01;
 
-            // Подбор значения B6
-            double b6Min = 0.00;
-            double b6Max = 3.00;
-            double b6Mid = (b6Min + b6Max) / 2;
+            double bestB6 = B6;
+            double bestB12 = B12;
+            double bestError = double.MaxValue;
 
-            while (b6Max - b6Min > tolerance)
+            for (double b6 = 0; b6 <= 3; b6 += step)
             {
-                B6 = b6Mid;
-                double d1Mid = D1;
-                double d2Mid = D2;
-
-                if (double.IsInfinity(d1Mid) || double.IsNaN(d1Mid) || double.IsInfinity(d2Mid) || double.IsNaN(d2Mid))
+                for (double b12 = 0; b12 <= 100; b12 += step) // Можно выбрать больший диапазон, если нужно
                 {
-                    b6Max = b6Mid;
-                    b6Mid = (b6Min + b6Max) / 2;
-                    continue;
+                    B6 = b6;
+                    B12 = b12;
+
+                    double error = Math.Abs(D1) + Math.Abs(D2);
+
+                    if (error < bestError)
+                    {
+                        bestError = error;
+                        bestB6 = b6;
+                        bestB12 = b12;
+                    }
+
+                    if (bestError < tolerance)
+                    {
+                        B6 = bestB6;
+                        B12 = bestB12;
+                        return;
+                    }
                 }
-
-                B6 = b6Mid - step;
-                double d1Left = D1;
-                double d2Left = D2;
-
-                if (double.IsInfinity(d1Left) || double.IsNaN(d1Left) || double.IsInfinity(d2Left) || double.IsNaN(d2Left))
-                {
-                    b6Max = b6Mid;
-                    b6Mid = (b6Min + b6Max) / 2;
-                    continue;
-                }
-
-                B6 = b6Mid + step;
-                double d1Right = D1;
-                double d2Right = D2;
-
-                if (double.IsInfinity(d1Right) || double.IsNaN(d1Right) || double.IsInfinity(d2Right) || double.IsNaN(d2Right))
-                {
-                    b6Min = b6Mid;
-                    b6Mid = (b6Min + b6Max) / 2;
-                    continue;
-                }
-
-                double errorMid = Math.Abs(d1Mid) + Math.Abs(d2Mid);
-                double errorLeft = Math.Abs(d1Left) + Math.Abs(d2Left);
-                double errorRight = Math.Abs(d1Right) + Math.Abs(d2Right);
-
-                if (errorLeft < errorMid)
-                {
-                    b6Max = b6Mid;
-                }
-                else if (errorRight < errorMid)
-                {
-                    b6Min = b6Mid;
-                }
-                else
-                {
-                    break;
-                }
-
-                b6Mid = (b6Min + b6Max) / 2;
             }
 
-            B6 = Math.Round(b6Mid, 4); // Округляем до 4 знаков после запятой
-
-            // Подбор значения B12
-            double b12Min = 0.00;
-            double b12Max = 1e308; // Максимальное значение, чтобы избежать переполнения
-            double b12Mid = (b12Min + b12Max) / 2;
-
-            while (b12Max - b12Min > tolerance)
-            {
-                B12 = Math.Round(b12Mid, 4); // Округляем до 4 знаков после запятой
-                double d1Mid = D1;
-                double d2Mid = D2;
-
-                if (double.IsInfinity(d1Mid) || double.IsNaN(d1Mid) || double.IsInfinity(d2Mid) || double.IsNaN(d2Mid))
-                {
-                    b12Max = b12Mid;
-                    b12Mid = (b12Min + b12Max) / 2;
-                    continue;
-                }
-
-                B12 = Math.Round(b12Mid - step, 4); // Округляем до 4 знаков после запятой
-                double d1Left = D1;
-                double d2Left = D2;
-
-                if (double.IsInfinity(d1Left) || double.IsNaN(d1Left) || double.IsInfinity(d2Left) || double.IsNaN(d2Left))
-                {
-                    b12Max = b12Mid;
-                    b12Mid = (b12Min + b12Max) / 2;
-                    continue;
-                }
-
-                B12 = Math.Round(b12Mid + step, 4); // Округляем до 4 знаков после запятой
-                double d1Right = D1;
-                double d2Right = D2;
-
-                if (double.IsInfinity(d1Right) || double.IsNaN(d1Right) || double.IsInfinity(d2Right) || double.IsNaN(d2Right))
-                {
-                    b12Min = b12Mid;
-                    b12Mid = (b12Min + b12Max) / 2;
-                    continue;
-                }
-
-                double errorMid = Math.Abs(d1Mid) + Math.Abs(d2Mid);
-                double errorLeft = Math.Abs(d1Left) + Math.Abs(d2Left);
-                double errorRight = Math.Abs(d1Right) + Math.Abs(d2Right);
-
-                if (errorLeft < errorMid)
-                {
-                    b12Max = b12Mid;
-                }
-                else if (errorRight < errorMid)
-                {
-                    b12Min = b12Mid;
-                }
-                else
-                {
-                    break;
-                }
-
-                b12Mid = (b12Min + b12Max) / 2;
-            }
-
-            B12 = Math.Round(b12Mid, 4); // Округляем до 4 знаков после запятой
+            B6 = bestB6;
+            B12 = bestB12;
         }
+
+        public void Selection(bool IsRo0)
+        {
+            if (!IsRo0) 
+            { 
+                Selection();
+                return; 
+            }
+            double step = 0.05;
+            double tolerance = 0.01;
+
+            double bestB6 = B6;
+            double bestB12 = B10;
+            double bestError = double.MaxValue;
+
+            for (double b6 = 0; b6 <= 3; b6 += step)
+            {
+                for (double b12 = 0; b12 <= 100; b12 += step) // Можно выбрать больший диапазон, если нужно
+                {
+                    B6 = b6;
+                    B10 = b12;
+
+                    double error = Math.Abs(D1) + Math.Abs(D2);
+
+                    if (error < bestError)
+                    {
+                        bestError = error;
+                        bestB6 = b6;
+                        bestB12 = b12;
+                    }
+
+                    if (bestError < tolerance)
+                    {
+                        B6 = bestB6;
+                        B10 = bestB12;
+                        return;
+                    }
+                }
+            }
+
+            B6 = bestB6;
+            B10 = bestB12;
+        }
+
+        public void SelectionParallel()
+        {
+            
+        }
+
+       
 
         public void SelectionSimplex()
         {
-
+            SelectionParallel();
         }
 
         double COS(double c)
