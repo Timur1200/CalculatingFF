@@ -18,7 +18,7 @@ namespace CalculatingFF
     {
         private void Base()
         {
-            BettaList = new ObservableCollection<double> { 0, 35, 45, 60, 90 };
+            BettaList = new ObservableCollection<double> { 0, 30, 45, 60, 90 };
             Sig2List = new ObservableCollection<double> {0,5,10,15,20 };
             
         }
@@ -223,7 +223,7 @@ namespace CalculatingFF
         /// </summary>
         public double B12 { get { return b12; } set { b12 = value; OnPropertyChanged("B12"); Solve(); } }
         /// <summary>
-        /// Sig3
+        /// Sig3 Sig2
         /// </summary>
         public double B13 { get { return b13; } set { b13 = value; OnPropertyChanged("B13"); Solve(); } }
         /// <summary>

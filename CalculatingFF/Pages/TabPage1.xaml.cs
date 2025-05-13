@@ -41,12 +41,16 @@ namespace CalculatingFF.Pages
         }
         private async void SelectionTableAsync()
         {
-           
+           List<TableSig> _table = new List<TableSig>();
+
             List<string> logList = new List<string>();
             logList.Add("Таблица SIG");
             int rowBetta = _Model.BettaList.Count;
             int colSig = _Model.Sig2List.Count;
             nums = new double[rowBetta, colSig];
+
+            
+
             for (int i = 0; i < rowBetta; i++)
             {
                 _Model.B = _Model.BettaList[i];
@@ -56,7 +60,17 @@ namespace CalculatingFF.Pages
                     _Model.B13 = _Model.Sig2List[j];
                     _Model.Selection(_isRo0);
                     nums[i, j] = _Model.B12;
-                    if (Settings.IsLogEnabled) logList.Add($" SIG={Math.Round(nums[i, j],2)} \t PSI={_Model.B6} \t F1={Math.Round(_Model.D1,2)} \t F2={Math.Round(_Model.D2,2)};"  );
+                    TableSig rowSig = new TableSig {sig= Math.Round(nums[i, j], 2)
+                        , psi = _Model.B6 
+                        , f1 = Math.Round(_Model.D1, 2)
+                        , f2 = Math.Round(_Model.D2, 2)
+                        , betta = _Model.B//
+                        , sig2 = _Model.B13
+                        
+                    }; 
+                    _table.Add(rowSig);
+                    if (Settings.IsLogEnabled) logList.Add($" SIG={Math.Round(nums[i, j],2)} \t PSI={_Model.B6} " +
+                        $"\t F1={Math.Round(_Model.D1,2)} \t F2={Math.Round(_Model.D2,2)};"  );
                 }
             }
             if (Settings.IsLogEnabled)
@@ -66,11 +80,15 @@ namespace CalculatingFF.Pages
                     LogWindow logWindow;
                     logWindow = new LogWindow(logList);
                     logWindow.Show();
-                });
-                
-                
+                });         
             }
-        }
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                EmptyWindow emptyWindow;
+                emptyWindow = new EmptyWindow(_table,nums);
+                emptyWindow.Show();
+            });
+            }
         private async void SelectionClick(object sender, RoutedEventArgs e)
         {
             if (TableCBox.IsChecked == false)

@@ -68,7 +68,6 @@ namespace CalculatingFF
             double tolerance = 0.01; // Допустимая погрешность
             int maxIterations = 2200; // Максимальное количество итераций
             double stepSize = 0.01; // Шаг изменения переменных с точностью до двух знаков после запятой
-
             for (int i = 0; i < maxIterations; i++)
             {
                 double diff = Math.Abs(Z1 - Z2);
@@ -78,7 +77,6 @@ namespace CalculatingFF
                     Console.WriteLine($"Значения подобраны: K = {K}, T1 = {T1}, Z1 = {Z1}, Z2 = {Z2}");
                     break;
                 }
-
                 // Изменяем K
                 double oldK = K;
                 K += stepSize;
@@ -112,22 +110,17 @@ namespace CalculatingFF
                     }
                     Solve();
                     newDiff = Math.Abs(Z1 - Z2);
-
                     if (newDiff < diff)
-                    {
-                        // Улучшение, продолжаем в новом направлении
-                        continue;
+                    {                        
+                        continue;// Улучшение, продолжаем в новом направлении
                     }
                     else
-                    {
-                        // Возвращаем старое значение K
+                    {                      
                         K = oldK;
-                        Solve();
+                        Solve();// Возвращаем старое значение K
                     }
-                }
-
-                // Изменяем T1
-                double oldT1 = T1;
+                }                
+                double oldT1 = T1;// Изменяем T1
                 T1 += stepSize;
                 if (T1 < 0.00) // Проверка на неотрицательность
                 {
@@ -135,36 +128,29 @@ namespace CalculatingFF
                 }
                 Solve();
                 newDiff = Math.Abs(Z1 - Z2);
-
                 if (newDiff < diff)
                 {
-                    // Улучшение, продолжаем в том же направлении
-                    continue;
+                    continue;// Улучшение, продолжаем в том же направлении
                 }
                 else
-                {
-                    // Ухудшение, меняем направление
-                    T1 = oldT1 - stepSize;
+                {                   
+                    T1 = oldT1 - stepSize; // Ухудшение, меняем направление
                     if (T1 < 0.00) // Проверка на неотрицательность
                     {
                         T1 = oldT1;
                     }
                     Solve();
                     newDiff = Math.Abs(Z1 - Z2);
-
                     if (newDiff < diff)
-                    {
-                        // Улучшение, продолжаем в новом направлении
-                        continue;
+                    {                       
+                        continue;// Улучшение, продолжаем в новом направлении
                     }
                     else
-                    {
-                        // Возвращаем старое значение T1
-                        T1 = oldT1;
+                    {                     
+                        T1 = oldT1; // Возвращаем старое значение T1
                         Solve();
                     }
                 }
-
                 // Уменьшаем шаг, если нет улучшений
                 stepSize *= 0.9;
             }

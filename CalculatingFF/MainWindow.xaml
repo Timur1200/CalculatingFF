@@ -14,7 +14,7 @@
         </Grid.RowDefinitions>
 
         <Menu Grid.Row="0" Height="auto" Margin="3" VerticalAlignment="Top">
-            <MenuItem Header="File">
+            <MenuItem Header="Файл">
                 <MenuItem Header="New Project" ></MenuItem>
                 <MenuItem Header="Open Project" >
                     <MenuItem Header="123"></MenuItem>
@@ -23,8 +23,8 @@
                 <Separator />
                 <MenuItem Header="Exit" ></MenuItem>
             </MenuItem>
-            <MenuItem Header="Edit" ></MenuItem>
-            <MenuItem Header="View" ></MenuItem>
+            <MenuItem Header="Правка" ></MenuItem>
+            <MenuItem Header="Вид" ></MenuItem>
         </Menu>
 
         <ToolBar Grid.Row="1" Height="40"  HorizontalAlignment="Left" Margin="2">
