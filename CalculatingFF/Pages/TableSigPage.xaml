@@ -11,13 +11,26 @@
 
     <Grid>
         <TabControl>
-            <TabItem Header="Таблица 1"><DataGrid Name="DGrid">
+            <TabItem Header="Таблица"><DataGrid Name="DGrid">
                 </DataGrid>
             </TabItem>
                 <TabItem Header="График">
                     <Grid>
-                    <oxy:PlotView Model="{Binding PlotModel}" />
+                    <oxy:PlotView Name="MyPlotView"  />
                 </Grid>
+            </TabItem>
+            <TabItem Header="Аппроксимация">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.11*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <ComboBox Visibility="Visible" SelectionChanged="PlotComboBox_SelectionChanged" Name="PlotComboBox"></ComboBox>
+                    <oxy:PlotView Grid.Row="1" Name="MyPlotView1"  />
+                    
+
+                </Grid>
+                
             </TabItem>
         </TabControl>
         
