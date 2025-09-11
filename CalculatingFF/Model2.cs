@@ -126,27 +126,19 @@ namespace CalculatingFF
         /// </summary>
         public void Selection()
         {
-            double tolerance = 0.001; // Допустимая погрешность
+            double tolerance = Settings.settings.Tolerance; // Допустимая погрешность 0 001
             double lowerBound = 0; // Нижняя граница для C0 (неотрицательное значение)
             double upperBound = 100;  // Верхняя граница для C0
             int maxIterations = 1000; // Максимальное количество итераций
-
             double goldenRatio = (Math.Sqrt(5) - 1) / 2; // Золотое сечение
-
             double a = lowerBound;
             double b = upperBound;
-
             double c = b - (b - a) * goldenRatio;
             double d = a + (b - a) * goldenRatio;
-
             C0 = c;
-            Solve();
             double fc = F;
-
             C0 = d;
-            Solve();
             double fd = F;
-
             for (int i = 0; i < maxIterations; i++)
             {
                 if (Math.Abs(fc) < Math.Abs(fd))
@@ -156,7 +148,6 @@ namespace CalculatingFF
                     fd = fc;
                     c = b - (b - a) * goldenRatio;
                     C0 = c;
-                    Solve();
                     fc = F;
                 }
                 else
@@ -166,24 +157,18 @@ namespace CalculatingFF
                     fc = fd;
                     d = a + (b - a) * goldenRatio;
                     C0 = d;
-                    Solve();
                     fd = F;
                 }
-
-                // Проверка условия C90 < C0
-                if (C0 <= C90)
+                if (C0 <= C90)  // Проверка условия C90 < C0
                 {
                     a = C0;
                     c = b - (b - a) * goldenRatio;
                     C0 = c;
-                    Solve();
                     fc = F;
                 }
-
                 if (Math.Abs(b - a) < tolerance)
                 {
                     C0 = (a + b) / 2;
-                    Solve();
                     Console.WriteLine($"Значение подобранно: C0 = {C0}, F = {F}");
                     return;
                 }

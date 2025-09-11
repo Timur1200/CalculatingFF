@@ -74,13 +74,13 @@ namespace CalculatingFF.Pages
                 }
             }
             if (Settings.IsLogEnabled)
-            {
-                Application.Current.Dispatcher.Invoke(() =>
-                {
-                    LogWindow logWindow;
-                    logWindow = new LogWindow(logList);
-                    logWindow.Show();
-                });         
+            {   // окно устарело
+                //Application.Current.Dispatcher.Invoke(() =>
+                //{
+                //    LogWindow logWindow;
+                //    logWindow = new LogWindow(logList);
+                //    logWindow.Show();
+                //});         
             }
             Application.Current.Dispatcher.Invoke(() =>
             {

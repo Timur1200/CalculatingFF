@@ -30,5 +30,12 @@ namespace CalculatingFF.Windows
             WinFrame.Navigate(new TableSigPage(table, nums));
         }
 
+        public EmptyWindow(Page page,string windowName)
+        {
+            InitializeComponent();
+            Title = windowName;
+            WinFrame.Navigate(page);
+        }
+
     }
 }

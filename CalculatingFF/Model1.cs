@@ -19,8 +19,7 @@ namespace CalculatingFF
         private void Base()
         {
             BettaList = new ObservableCollection<double> { 0, 30, 45, 60, 90 };
-            Sig2List = new ObservableCollection<double> {0,5,10,15,20 };
-            
+            Sig2List = new ObservableCollection<double> {0,5,10,15,20 };            
         }
         public Model1()
         {
@@ -40,12 +39,8 @@ namespace CalculatingFF
                 B11 = 0.13;
                 B12 = 59.5;
                 B13 = 5;
-
-            }
-          
-        }
-        
-
+            }        
+        }      
         public string TestPrint()
         {
             string msg = $"r0= {B2} \n S={B3} \n S`={B4} \n K={B5} \n k={B14} \n c={B15} \n r0={B16} \n n1={B17} \n n2={B18} \n m1={B19} \n xsi={B20} \n F1={D1} \n F2={D2} \n p={D4}";
@@ -83,16 +78,14 @@ namespace CalculatingFF
         }
         public void Selection()
         {
-            double step = 0.05;
-            double tolerance = 0.01;
-
-            double bestB6 = B6;
-            double bestB12 = B12;
-            double bestError = double.MaxValue;
-
+            double step = 0.05;//шаг
+            double tolerance = 0.01;// точность
+            double bestB6 = B6;//psi
+            double bestB12 = B12;//sig1
+            double bestError = double.MaxValue;//разница(лучшая погрешность)
             for (double b6 = 0; b6 <= 3; b6 += step)
             {
-                for (double b12 = 0; b12 <= 100; b12 += step) // Можно выбрать больший диапазон, если нужно
+                for (double b12 = 0; b12 <= 100; b12 += step)                                   // Можно выбрать больший диапазон, если нужно
                 {
                     B6 = b6;
                     B12 = b12;
@@ -102,8 +95,8 @@ namespace CalculatingFF
                     if (error < bestError)
                     {
                         bestError = error;
-                        bestB6 = b6;
-                        bestB12 = b12;
+                        bestB6 = b6;// psi
+                        bestB12 = b12;// sig1
                     }
 
                     if (bestError < tolerance)
@@ -114,9 +107,43 @@ namespace CalculatingFF
                     }
                 }
             }
-
             B6 = bestB6;
             B12 = bestB12;
+        }
+
+        public void SelectionViewDiplom()
+        {
+            double step = Settings.settings.Step;//шаг 0 05
+            double tolerance = Settings.settings.Tolerance;// точность 0 01
+            double bestPsi = B6;//psi
+            double bestSig1 = B12;//sig1
+            double bestError = double.MaxValue;//лучшее отклонение
+            for (double psi = 0; psi <= 3; psi += step)
+            {
+                for (double sig1 = 0; sig1 <= 100; sig1 += step)                                   // Можно выбрать больший диапазон, если нужно
+                {
+                    B6 = psi;
+                    B12 = sig1;
+                    double error = Math.Abs(D1) + Math.Abs(D2);
+                    //Суммарное отклонение F1 и F2
+                    if (error < bestError)
+                    {
+                        bestError = error;
+                        bestPsi = psi;// psi
+                        bestSig1 = sig1;// sig1
+                    }
+
+                    if (bestError < tolerance)
+                    {
+                        MessageBox.Show("идеальное значение");
+                        B6 = bestPsi;
+                        B12 = bestSig1;
+                        return;
+                    }
+                }
+            }
+            B6 = bestPsi;
+            B12 = bestSig1;
         }
 
         public void Selection(bool IsRo0)
@@ -166,8 +193,6 @@ namespace CalculatingFF
         {
             
         }
-
-       
 
         public void SelectionSimplex()
         {

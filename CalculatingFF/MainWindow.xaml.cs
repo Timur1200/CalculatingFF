@@ -4,6 +4,7 @@ using CalculatingFF.Pages;
 using Excel = Microsoft.Office.Interop.Excel;
 using System.Diagnostics;
 using System.Linq;
+using CalculatingFF.Windows;
 
 namespace CalculatingFF
 {
@@ -22,7 +23,7 @@ namespace CalculatingFF
             TabFrame1.NavigationService.Navigate(new TabPage1());
             TabFrame2.NavigationService.Navigate(new TabPage2());
             TabFrame3.NavigationService.Navigate(new TabPage3());
-
+            Settings.settings.LoadFromJson();
             Settings.SyncInputData = SyncToggleBtn.IsChecked.Value;
             Settings.IsLogEnabled = LogToggleBtn.IsChecked.Value;
 
@@ -280,6 +281,12 @@ namespace CalculatingFF
         private void LogToggleBtnClick(object sender, RoutedEventArgs e)
         {
             Settings.IsLogEnabled = !(Settings.IsLogEnabled);
+        }
+
+        private void SettingClick(object sender, RoutedEventArgs e)
+        {
+            EmptyWindow win = new EmptyWindow(new SettingPage(),"Настройки");
+            win.Show();
         }
     }
 

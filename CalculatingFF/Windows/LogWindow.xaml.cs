@@ -26,6 +26,7 @@ namespace CalculatingFF.Windows
         public LogWindow(List<string> logList)
         {
             InitializeComponent();
+            
             _LogList = logList;
             LogListBox.ItemsSource = _LogList;
         }

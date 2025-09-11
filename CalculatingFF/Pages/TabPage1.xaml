@@ -8,8 +8,9 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Loaded="PageLoaded"
       Title="TabPage1">
-
+   
     <Grid>
+        
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
@@ -24,13 +25,6 @@
                 <TextBox Text="{Binding B8}" x:Name="s31TextBox"/>
                 <TextBlock Text="C90" />
                 <TextBox  Text="{Binding B9}"/>
-                
-
-
-                
-
-
-              
 
                 <TextBlock Text="ro90" />
                 <TextBox Text="{Binding B11}" x:Name="s13TextBox"/>
@@ -43,13 +37,14 @@
                 <Button Margin="10" Content="Подобрать" Click="SelectionClick"/>
                 
                 <Button x:Name="BtnSelection2" Visibility="Visible"  Margin="10" Content="Подобрать 2" Click="SelectionSimplexClick"/>
-                <Button Margin="10" Content="Вычислить" Click="SolveClick"/>
+                <!--<Button Margin="10" Content="Вычислить" Click="SolveClick"/>-->
                 
                 <DockPanel Margin="5" LastChildFill="False">
                     <Button DockPanel.Dock="Left" Click="TableClick"  Content="Таблица" />
                     <CheckBox Name="TableCBox" IsChecked="True" FontSize="14" Content="Расчёт таблицы" DockPanel.Dock="Right" />
                 </DockPanel>
                 
+
                 <Button  Margin="10" Content="Экспорт в Excel" Click="ToExcelClick"/>
             </StackPanel>
         </ScrollViewer>

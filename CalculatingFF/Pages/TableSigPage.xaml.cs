@@ -59,7 +59,7 @@ namespace CalculatingFF.Pages
                 PlotComboBox.Items.Add($"{i+1}");
             }
 
-            BuildPlotWithParabola(0);// строит линейную 
+            BuildPlotWithParabola(0);//  
         }
         public PlotModel PlotModel { get; set; }
         public PlotModel PlotModel1 { get; set; }
@@ -208,6 +208,7 @@ namespace CalculatingFF.Pages
             PlotModel1.Axes.Add(new LinearAxis { Position = AxisPosition.Left, Title = "Sig" });
             MyPlotView1.Model = PlotModel1;
         }
+
         public static (double k, double b) CalculateLinearRegression(List<TableSig> data)
         {
             double sumX = 0, sumY = 0, sumXY = 0, sumX2 = 0;

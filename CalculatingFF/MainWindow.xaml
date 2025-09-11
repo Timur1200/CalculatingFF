@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CalculatingFF"
         mc:Ignorable="d"
-        Title="Итерационный подбор" Height="760" Width="1000" >
+        Title="Подбор значений" Height="760" Width="1000" >
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -25,6 +25,7 @@
             </MenuItem>
             <MenuItem Header="Правка" ></MenuItem>
             <MenuItem Header="Вид" ></MenuItem>
+            <MenuItem Header="Настройки" Click="SettingClick" ></MenuItem>
         </Menu>
 
         <ToolBar Grid.Row="1" Height="40"  HorizontalAlignment="Left" Margin="2">
@@ -32,7 +33,7 @@
                 <Image Source="..\..\Resources\sync.png"></Image>
             </ToggleButton>
             <Separator />
-            <ToggleButton IsChecked="True"  Name="LogToggleBtn" Click="LogToggleBtnClick" ToolTip="Лог отчёт вычислений">
+            <ToggleButton IsChecked="True" Visibility="Collapsed"  Name="LogToggleBtn" Click="LogToggleBtnClick" ToolTip="Лог отчёт вычислений">
                 <Image Source="..\..\Resources\logIcon.png"></Image>
             </ToggleButton>
             <Button Visibility="Collapsed" ToolTip="Скопировать входные значения с текущей страницы" >

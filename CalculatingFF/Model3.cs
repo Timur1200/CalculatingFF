@@ -65,9 +65,9 @@ namespace CalculatingFF
         }
         public void Selection()
         {
-            double tolerance = 0.01; // Допустимая погрешность
+            double tolerance = 0.001; // Допустимая погрешность
             int maxIterations = 2200; // Максимальное количество итераций
-            double stepSize = 0.01; // Шаг изменения переменных с точностью до двух знаков после запятой
+            double stepSize = Settings.settings.Step; // Шаг изменения переменных с точностью до двух знаков после запятой
             for (int i = 0; i < maxIterations; i++)
             {
                 double diff = Math.Abs(Z1 - Z2);
