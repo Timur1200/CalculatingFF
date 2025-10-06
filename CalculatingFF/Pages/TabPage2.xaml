@@ -19,9 +19,13 @@
         <ScrollViewer>
             <StackPanel Grid.Column="0" Margin="20">
                 <TextBlock FontSize="24" FontStyle="Oblique" Text="Входные данные" />
-                <TextBlock Text="s11" />
-                <TextBox Text="{Binding S11}" x:Name="s11TextBox"/>
-                <TextBlock Text="S31" />
+                <TextBlock Text="s11" >
+                    <TextBlock.ToolTip>
+                        <ToolTip>угол внутреннего трения горной породы образца керна, выбуренной при 90 градусах относительно напластования; 1 цифра это номер образца,а 2 ось в которой было напряжение</ToolTip>
+                    </TextBlock.ToolTip>
+                </TextBlock>
+                <TextBox Text="{Binding S11}" x:Name="s11TextBox"></TextBox>
+                <TextBlock Text="S31" ></TextBlock>
                 <TextBox Text="{Binding S31}" x:Name="s31TextBox"/>
                 <TextBlock Text="S21" />
                 <TextBox x:Name="s21TextBox" Text="{Binding S21}"/>
@@ -29,8 +33,12 @@
                 <TextBox Text="{Binding S23}" x:Name="s23TextBox"/>
 
 
-                <TextBlock Name="a1Text" Text="{Binding StringFormat=α1 rad{0}, Path=A1rad}" />
-                <TextBox Text="{Binding A1}" x:Name="a1TextBox"/>
+                <TextBlock Name="a1Text" Text="{Binding StringFormat=α1 rad{0}, Path=A1rad}" >
+                    <TextBlock.ToolTip>
+                        <ToolTip>углы выбуривания образца относительно напластования.</ToolTip>
+                    </TextBlock.ToolTip>
+                </TextBlock>
+                <TextBox Text="{Binding A1}" x:Name="a1TextBox"></TextBox>
 
 
                 <TextBlock Text="{Binding StringFormat=α2 rad{0}, Path=A2rad}" Name="a2Text" />
@@ -47,7 +55,7 @@
                 
 
                 <Button Margin="20" Content="Подобрать" Click="SelectionClick"/>
-                <Button Margin="20" Content="Вычислить" Click="SolveClick"/>
+                <Button Visibility="Collapsed" Margin="20" Content="Вычислить" Click="SolveClick"/>
                 <Button  Margin="20" Content="Экспорт в Excel" Click="ToExcelClick"/>
             </StackPanel>
         </ScrollViewer>

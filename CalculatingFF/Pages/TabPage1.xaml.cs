@@ -42,15 +42,19 @@ namespace CalculatingFF.Pages
         private async void SelectionTableAsync()
         {
            List<TableSig> _table = new List<TableSig>();
-
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                Settings.ProgressBar.Value = 1;
+            });
             List<string> logList = new List<string>();
             logList.Add("Таблица SIG");
             int rowBetta = _Model.BettaList.Count;
             int colSig = _Model.Sig2List.Count;
             nums = new double[rowBetta, colSig];
 
+            double bar = rowBetta * colSig;
+            double stepBar = 1 / bar * 100;
             
-
             for (int i = 0; i < rowBetta; i++)
             {
                 _Model.B = _Model.BettaList[i];
@@ -69,21 +73,21 @@ namespace CalculatingFF.Pages
                         
                     }; 
                     _table.Add(rowSig);
+                    Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        Settings.ProgressBar.Value = Settings.ProgressBar.Value + stepBar;
+                    });
+                    
                     if (Settings.IsLogEnabled) logList.Add($" SIG={Math.Round(nums[i, j],2)} \t PSI={_Model.B6} " +
                         $"\t F1={Math.Round(_Model.D1,2)} \t F2={Math.Round(_Model.D2,2)};"  );
                 }
             }
             if (Settings.IsLogEnabled)
-            {   // окно устарело
-                //Application.Current.Dispatcher.Invoke(() =>
-                //{
-                //    LogWindow logWindow;
-                //    logWindow = new LogWindow(logList);
-                //    logWindow.Show();
-                //});         
+            {         
             }
             Application.Current.Dispatcher.Invoke(() =>
             {
+                Settings.ProgressBar.Value = 100;
                 EmptyWindow emptyWindow;
                 emptyWindow = new EmptyWindow(_table,nums);
                 emptyWindow.Show();
@@ -170,10 +174,14 @@ namespace CalculatingFF.Pages
             if (PoleComboBox.SelectedIndex == 0)
             {//SIG1
                 _isRo0 = false;
+                TextBlockSig1.Text = "SIG1";
+                TextBlockRo0.Text = "ro0 (входное значение)";
             }
             else if (PoleComboBox.SelectedIndex == 1)
             {//ro0
                 _isRo0 = true;
+                TextBlockSig1.Text = "SIG1 (входное значение)";
+                TextBlockRo0.Text = "ro0 ";
             }
         }
     }

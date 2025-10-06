@@ -20,17 +20,40 @@
         <ScrollViewer>
             <StackPanel Grid.Column="0" Margin="20">
                 <TextBlock FontSize="24" FontStyle="Oblique" Text="Входные данные" />
-                
-                <TextBlock Text="C0" />
-                <TextBox Text="{Binding B8}" x:Name="s31TextBox"/>
-                <TextBlock Text="C90" />
+
+                <TextBlock  Text=" C0 " >
+                    <TextBlock.ToolTip>
+                        <ToolTip>сцепление горной породы образца керна, выбуренной при 0° относительно напластования</ToolTip>
+                    </TextBlock.ToolTip>        </TextBlock>
+                <TextBox Text="{Binding B8}" x:Name="s31TextBox">
+                   
+                </TextBox>
+                <TextBlock Text="C90" >
+                    <TextBlock.ToolTip>
+                        <ToolTip>сцепление горной породы образца керна, выбуренной при 900 относительно напластования</ToolTip>
+                    </TextBlock.ToolTip>
+                </TextBlock>
                 <TextBox  Text="{Binding B9}"/>
 
-                <TextBlock Text="ro90" />
-                <TextBox Text="{Binding B11}" x:Name="s13TextBox"/>
-                <TextBlock Text="SIG3" />
+                <TextBlock Text="ro90" >
+                    <TextBlock.ToolTip>
+                        <ToolTip>угол внутреннего трения горной породы образца керна, выбуренной при 90 градусах относительно напластования;</ToolTip>
+                    </TextBlock.ToolTip>
+                </TextBlock>
+                <TextBox Text="{Binding B11}" x:Name="s13TextBox">
+                    
+                </TextBox>
+                <TextBlock Text="SIG3" >
+                    <TextBlock.ToolTip>
+                        <ToolTip>минимальное боковое давление горной породы, МПа</ToolTip>
+                    </TextBlock.ToolTip>
+                </TextBlock>
                 <TextBox Text="{Binding B13}" x:Name="s33TextBox" />
-                <TextBlock  Text="{Binding StringFormat=betta rad{0}, Path=B1}" />
+                <TextBlock  Text="{Binding StringFormat=betta rad{0}, Path=B1}" >
+                    <TextBlock.ToolTip>
+                        <ToolTip>угол, под которым был вырезан образец</ToolTip>
+                    </TextBlock.ToolTip>
+                </TextBlock>
                 <TextBox Text="{Binding B}" />
 
                 
@@ -53,17 +76,32 @@
         <StackPanel Grid.Column="1" Margin="20">
             <TextBlock FontSize="24" FontStyle="Oblique" Text="Переменные" />
             <ComboBox SelectionChanged="PoleComboBox_SelectionChanged" Name="PoleComboBox" ></ComboBox>
-            <TextBlock Text="ro0" />
+            <TextBlock Name="TextBlockRo0" Text="ro0" >
+                <TextBlock.ToolTip>
+                    <ToolTip>угол внутреннего трения горной породы образца керна, выбуренной при 0 градусах относительно напластования</ToolTip>
+                </TextBlock.ToolTip>
+            </TextBlock> 
             <TextBox Text="{Binding B10}" x:Name="s23TextBox"/>
-            <TextBlock Text="SIG1" />
+            <TextBlock Name="TextBlockSig1" Text="SIG1" >
+                <TextBlock.ToolTip>
+                    <ToolTip>максимальное (главное) разрушающее напряжение горной породы, МПа;</ToolTip>
+                </TextBlock.ToolTip>
+            </TextBlock>
             <TextBox Text="{Binding B12}" />
-            <TextBlock Text="Psi"  />
+            <TextBlock Text="Psi" >
+                <TextBlock.ToolTip>
+                    <ToolTip>поправочный коэффициент, варьируется в пределах от 2,9 при 0 градусах до 0,4 при 90 градусах.</ToolTip>
+                </TextBlock.ToolTip>
+            </TextBlock>
             <TextBox Text="{Binding B6}"/>
             
             
             <TextBlock FontSize="24" FontStyle="Oblique" Text="Результат" />
-            
-            <TextBlock Text="F1"></TextBlock>
+
+            <TextBlock Text="F1">
+                <TextBlock.ToolTip>
+                    <ToolTip>формула из отчета по 1 этапу, при значении близкого к нулю, доказывающая правильность подбора SIG1.</ToolTip>
+                </TextBlock.ToolTip></TextBlock>
             <TextBox IsReadOnly="True" Text="{Binding D1}"  ></TextBox>
             <TextBlock Text="F2" ></TextBlock>
             <TextBox IsReadOnly="True" Text="{Binding D2}" ></TextBox>

@@ -7,11 +7,13 @@
         <Style TargetType="TextBlock">
             <Setter Property="FontSize" Value="20"></Setter>
             <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+            <Setter Property="MinWidth" Value="50"></Setter>
         </Style>
 
         <Style TargetType="TextBox">
             <Setter Property="FontSize" Value="22"></Setter>
             <Setter Property="Width" Value="Auto" ></Setter>
+            
         </Style>
 
         <Style TargetType="Button">

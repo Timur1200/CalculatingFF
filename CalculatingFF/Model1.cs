@@ -80,8 +80,8 @@ namespace CalculatingFF
         {
             double step = 0.05;//шаг
             double tolerance = 0.01;// точность
-            double bestB6 = B6;//psi
-            double bestB12 = B12;//sig1
+            double bestB6 = B6;//psi 0 до 3
+            double bestB12 = B12;//sig1 не отриц.
             double bestError = double.MaxValue;//разница(лучшая погрешность)
             for (double b6 = 0; b6 <= 3; b6 += step)
             {

@@ -125,8 +125,10 @@ namespace CalculatingFF
         /// Подбор значений для F->0 при С0
         /// </summary>
         public void Selection()
-        {
-            double tolerance = Settings.settings.Tolerance; // Допустимая погрешность 0 001
+        {// Подбираемый С0 должен быть не отрицательным
+         // -И должен удовлетворять условию C90<C0
+            
+                        double tolerance = Settings.settings.Tolerance; // Допустимая погрешность 0 001
             double lowerBound = 0; // Нижняя граница для C0 (неотрицательное значение)
             double upperBound = 100;  // Верхняя граница для C0
             int maxIterations = 1000; // Максимальное количество итераций

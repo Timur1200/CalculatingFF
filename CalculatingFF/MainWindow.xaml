@@ -26,6 +26,7 @@
             <MenuItem Header="Правка" ></MenuItem>
             <MenuItem Header="Вид" ></MenuItem>
             <MenuItem Header="Настройки" Click="SettingClick" ></MenuItem>
+            <MenuItem Header="Справка" Click="HelpClick" ></MenuItem>
         </Menu>
 
         <ToolBar Grid.Row="1" Height="40"  HorizontalAlignment="Left" Margin="2">
@@ -49,69 +50,24 @@
             <Button Visibility="Collapsed" Click="MasterToExcelClick" ToolTip="Экспорт в Excel"   >
                 <Image Source="..\..\Resources\excel.png" />
             </Button>
+            <ProgressBar  Name="PBar" Margin="20 5" Width="200"></ProgressBar>
         </ToolBar>
 
         <TabControl Grid.Row="2">
-            <TabItem Header="1">
+            <TabItem Header="Расчёт 1">
                 <Grid>
                     <Frame Name="TabFrame1"></Frame>
                 </Grid>
             </TabItem>
-            <TabItem Visibility="Collapsed" Header="1">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-
-                    <!-- Первая колона для входных значений  -->
-                    <ScrollViewer>
-                        <StackPanel Grid.Column="0" Margin="20">
-                            <TextBlock FontSize="24" FontStyle="Oblique" Text="Входные данные" />
-                            <TextBlock Text="с0" />
-                            <TextBox x:Name="txtBoxC0"/>
-                            <TextBlock Text="с90" />
-                            <TextBox x:Name="txtBoxC90"/>
-                            <TextBlock Text="ro0" />
-                            <TextBox x:Name="txtBoxRo0"/>
-                            <TextBlock Text="ro90" />
-                            <TextBox x:Name="txtBoxRo90"/>
-                            <TextBlock Text="SIG2" />
-                            <TextBox x:Name="txtBoxSIG2"/>
-                            <TextBlock Text="SIG3" />
-                            <TextBox x:Name="txtBoxSIG3"/>
-                            <TextBlock Text="Betta" />
-                            <TextBox x:Name="txtBoxBetta"/>
-                            <TextBlock Text="[F1, F2] не больше значения" />
-                            <TextBox x:Name="txtBoxAbsValueMax" Text="0,1"/>
-
-                            <Button Margin="20" Content="Подобрать" Click="Button_Click_Choose_Values"/>
-                            <Button Margin="20" Content="Экспорт в Excel" Click="Button_Click_Export_Excel"/>
-                        </StackPanel>
-                    </ScrollViewer>
-
-                    <!-- Вторая колона для входных значений  -->
-                    <StackPanel Grid.Column="1" Margin="20">
-                        <TextBlock FontSize="24" FontStyle="Oblique" Text="Результат" />
-                        <TextBlock Text="Psi" />
-                        <TextBox IsReadOnly="True" x:Name="txtBoxPsi"/>
-                        <TextBlock Text="SIG1" />
-                        <TextBox IsReadOnly="True" x:Name="txtBoxSIG1"/>
-                        <TextBlock Text="F1" />
-                        <TextBox IsReadOnly="True" x:Name="txtBoxF1"/>
-                        <TextBlock Text="F2" />
-                        <TextBox IsReadOnly="True" x:Name="txtBoxF2"/>
-                    </StackPanel>
-                </Grid>
-            </TabItem>
+          
             
             <!-- 2 tab item  -->
-            <TabItem Header="2">
+            <TabItem Header="Расчёт 2">
                 <Grid>
                     <Frame Name="TabFrame2"></Frame>
                 </Grid>
             </TabItem>
-            <TabItem Header="3">
+            <TabItem Header="Расчёт 3">
                 <Frame Name="TabFrame3"></Frame>
             </TabItem>
         </TabControl>

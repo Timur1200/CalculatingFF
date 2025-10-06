@@ -51,7 +51,7 @@
 
 
                 <Button Margin="20" Content="Подобрать" Click="SelectionClick"/>
-                <Button Margin="20" Content="Вычислить" Click="SolveClick"/>
+                <Button Visibility="Collapsed" Margin="20" Content="Вычислить" Click="SolveClick"/>
                 <Button Click="ToExcelClick"  Margin="20" Content="Экспорт в Excel"/>
             </StackPanel>
         </ScrollViewer>

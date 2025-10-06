@@ -8,6 +8,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace CalculatingFF
 {
@@ -27,6 +28,7 @@ namespace CalculatingFF
         /// Отвечает за создание окна с логами
         /// </summary>
         public static bool IsLogEnabled { get; set; }
+        public static ProgressBar ProgressBar { get; set; }
 
         private  double step { get; set; }
         public  double Step { get { return step; } set { step = value; settings.OnPropertyChanged("Step"); } }

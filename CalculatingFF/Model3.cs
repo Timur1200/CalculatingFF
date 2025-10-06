@@ -65,6 +65,7 @@ namespace CalculatingFF
         }
         public void Selection()
         {
+            //К 0 до 1
             double tolerance = 0.001; // Допустимая погрешность
             int maxIterations = 2200; // Максимальное количество итераций
             double stepSize = Settings.settings.Step; // Шаг изменения переменных с точностью до двух знаков после запятой
