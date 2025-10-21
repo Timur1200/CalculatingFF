@@ -69,8 +69,8 @@
             <TextBlock FontSize="24" FontStyle="Oblique" Text="Результат" />
                 
             <TextBlock Text="Z1" />
-            <TextBox Text="{Binding Z1}" IsReadOnly="True" />
-            <TextBlock Text="Z2" />
+            <TextBox  Name="Z1box" Text="{Binding Z1}" IsReadOnly="True" />
+            <TextBlock Name="Z2box" Text="Z2" />
             <TextBox Text="{Binding Z2}" IsReadOnly="True" />
 
             <TextBlock Text="C0" />
@@ -79,6 +79,8 @@
             <TextBox Text="{Binding _C90}" IsReadOnly="True" />
                 <TextBlock Text="R90" />
                 <TextBox Text="{Binding R90}" IsReadOnly="True" />
+                <TextBlock Text="Точность" />
+                <TextBox Text="{Binding BestError}" TextChanged="box_TextChanged" Name="diffBox"  IsReadOnly="True" />
                 <!--<TextBlock Text="N1" ></TextBlock>
             <TextBox IsReadOnly="True" Text="{Binding N1}" ></TextBox>
             <TextBlock Text="N2" />

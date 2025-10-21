@@ -155,6 +155,7 @@ namespace CalculatingFF
                 // Уменьшаем шаг, если нет улучшений
                 stepSize *= 0.9;
             }
+            BestError = Math.Abs(Z1 - Z2);
         }
 
 
@@ -232,5 +233,8 @@ namespace CalculatingFF
                     * ((S13 - S33) * N3 + T1) - ((S13 + S33) * K + T2) * ((S13 + S33) * K + T2);} set { } }
         public double _C0 { get { return (T1 + T2) / 2; } set { } }
         public double _C90 { get { return (T2 - T1) / 2; } set { } }
+
+        private double besterror;
+        public double BestError { get { return besterror; } set { besterror = value; OnPropertyChanged("BestError"); } }
     }
 }

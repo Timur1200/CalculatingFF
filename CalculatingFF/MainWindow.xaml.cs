@@ -54,7 +54,8 @@ namespace CalculatingFF
 
         private void HelpClick(object sender, RoutedEventArgs e)
         {
-
+            EmptyWindow win = new EmptyWindow(new HelpPage(),"Справка");
+            win.Show();
         }
     }
    

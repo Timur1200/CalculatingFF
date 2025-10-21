@@ -51,5 +51,28 @@ namespace CalculatingFF
                 _Model3 = Settings.SyncModel( TabPage2._Model, _Model3);
             }
         }
+
+       
+        private void box_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            double diff = _Model3.BestError;
+           
+            if (diff < (double)3)
+            {
+                diffBox.Background = new SolidColorBrush(Colors.LightGreen);
+            }
+            else if (diff < (double)6)
+            {
+                diffBox.Background = new SolidColorBrush(Colors.Yellow);
+            }
+            else if (diff < (double)9)
+            {
+                diffBox.Background = new SolidColorBrush(Colors.DarkOrange);
+            }
+            else
+            {
+                diffBox.Background = new SolidColorBrush(Colors.Red);
+            }
+        }
     }
 }

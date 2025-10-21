@@ -7,7 +7,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using System.Windows.Media;
 using MathNet.Numerics.LinearAlgebra;
 using MathNet.Numerics.Optimization;
 
@@ -76,6 +76,7 @@ namespace CalculatingFF
             OnPropertyChanged("D1");
             OnPropertyChanged("D2");
         }
+        
         public void Selection()
         {
             double step = 0.05;//шаг
@@ -109,6 +110,7 @@ namespace CalculatingFF
             }
             B6 = bestB6;
             B12 = bestB12;
+            BestError = bestError;
         }
 
         public void SelectionViewDiplom()
@@ -219,6 +221,9 @@ namespace CalculatingFF
         private double b11;
         private double b12;
         private double b13;
+        private double besterror;
+        public double BestError { get { return besterror; } set { besterror = value; OnPropertyChanged("BestError"); } }
+       
         /// <summary>
         /// Бэта в градусах
         /// </summary>

@@ -74,7 +74,7 @@
             <TextBlock Text="R90" ></TextBlock>
             <TextBox IsReadOnly="True" Text="{Binding R90}" ></TextBox>
             <TextBlock Text="F" />
-            <TextBox Text="{Binding F}" IsReadOnly="True" />
+            <TextBox TextChanged="TextBox_TextChanged" Name="Fbox" Text="{Binding F}" IsReadOnly="True" />
         </StackPanel>
     </Grid>
 </Page>

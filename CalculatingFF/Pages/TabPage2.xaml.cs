@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DocumentFormat.OpenXml.Office2013.Drawing.ChartStyle;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -51,6 +52,29 @@ namespace CalculatingFF
             {
                 _Model = Settings.SyncModel(TabPage3._Model3, _Model);
             }
+        }
+        public void ChangeColor()
+        {
+            if (_Model.F < (double)3)
+            {
+                Fbox.Background = new SolidColorBrush(Colors.LightGreen);
+            }
+            else if (_Model.F < (double)6)
+            {
+                Fbox.Background = new SolidColorBrush(Colors.Yellow);
+            }
+            else if (_Model.F < (double)9)
+            {
+                Fbox.Background = new SolidColorBrush(Colors.DarkOrange);
+            }
+            else
+            {
+                Fbox.Background = new SolidColorBrush(Colors.Red);
+            }
+        }
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            ChangeColor();
         }
     }
 }

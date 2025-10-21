@@ -175,7 +175,7 @@ namespace CalculatingFF
                     return;
                 }
             }
-
+            
             Console.WriteLine("Не удалось подобрать значение C0 с заданной точностью.");
         }
 
@@ -190,9 +190,9 @@ namespace CalculatingFF
         private double _s33;
         private double _c0;
         private double _ksr;
-        
+       
 
-        
+
 
         public double S11 { get { return _s11; } set { _s11 = value; OnPropertyChanged("S11");Solve(); } }
         public double S31 { get { return _s31; } set { _s31 = value; OnPropertyChanged("S31");Solve(); } }

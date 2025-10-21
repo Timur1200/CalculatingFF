@@ -31,6 +31,7 @@ namespace CalculatingFF.Pages
             PoleComboBox.Items.Add("SIG1");
             PoleComboBox.Items.Add("ro0");
             PoleComboBox.SelectedIndex = 0;
+            
 
         }
         public static Model1 _Model;
@@ -100,6 +101,26 @@ namespace CalculatingFF.Pages
             else
             {
                 await TaskManager._this.RunTask(() => SelectionTableAsync());
+            }
+            
+        }
+        public void ChangeColor()
+        {
+            if (_Model.BestError < (double)3)
+            {
+                errorBox.Background = new SolidColorBrush(Colors.LightGreen);
+            }
+            else if (_Model.BestError < (double)6)
+            {
+                errorBox.Background = new SolidColorBrush(Colors.Yellow);
+            }
+            else if (_Model.BestError < (double)9)
+            {
+                errorBox.Background = new SolidColorBrush(Colors.DarkOrange);
+            }
+            else
+            {
+                errorBox.Background = new SolidColorBrush(Colors.Red);
             }
         }
 
@@ -183,6 +204,11 @@ namespace CalculatingFF.Pages
                 TextBlockSig1.Text = "SIG1 (входное значение)";
                 TextBlockRo0.Text = "ro0 ";
             }
+        }
+
+        private void errorBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            ChangeColor();
         }
     }
 }

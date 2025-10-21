@@ -105,8 +105,9 @@
             <TextBox IsReadOnly="True" Text="{Binding D1}"  ></TextBox>
             <TextBlock Text="F2" ></TextBlock>
             <TextBox IsReadOnly="True" Text="{Binding D2}" ></TextBox>
-            
-            
+            <TextBlock Text="Погрешность" ></TextBlock>
+            <TextBox  TextChanged="errorBox_TextChanged"  Name="errorBox" IsReadOnly="False" Text="{Binding BestError}" ></TextBox>
+
         </StackPanel>
     </Grid>
 </Page>
