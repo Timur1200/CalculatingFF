@@ -18,7 +18,7 @@
         <!-- Первая колона для входных значений  -->
         <ScrollViewer>
             <StackPanel Grid.Column="0" Margin="20">
-                <TextBlock FontSize="24" FontStyle="Oblique" Text="Входные данные" />
+                <TextBlock FontSize="24" FontStyle="Normal" Text="Входные данные" />
                 <TextBlock Text="s11" >
                     <TextBlock.ToolTip>
                         <ToolTip>угол внутреннего трения горной породы образца керна, выбуренной при 90 градусах относительно напластования; 1 цифра это номер образца,а 2 ось в которой было напряжение</ToolTip>
@@ -62,11 +62,11 @@
 
         <!-- Вторая колона для выходных значений  -->
         <StackPanel Grid.Column="1" Margin="20">
-            <TextBlock FontSize="24" FontStyle="Oblique" Text="Переменные" />
+            <TextBlock FontSize="24" FontStyle="Normal" Text="Переменные" />
             <TextBlock Text="C0"></TextBlock>
             <TextBox Text="{Binding C0}" Name="c0TextBox" ></TextBox>
 
-            <TextBlock FontSize="24" FontStyle="Oblique" Text="Результат" />
+            <TextBlock FontSize="24" FontStyle="Normal" Text="Результат" />
             <TextBlock Text="C90" ></TextBlock>
             <TextBox IsReadOnly="True" Text="{Binding C90}" ></TextBox>
             <TextBlock Text="R0" ></TextBlock>

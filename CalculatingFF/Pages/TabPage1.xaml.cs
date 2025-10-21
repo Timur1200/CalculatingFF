@@ -108,19 +108,57 @@ namespace CalculatingFF.Pages
         {
             if (_Model.BestError < (double)3)
             {
-                errorBox.Background = new SolidColorBrush(Colors.LightGreen);
+                try
+                {
+                    var color = (Color)ColorConverter.ConvertFromString(Settings.settings.Color);
+                    errorBox.Background = new SolidColorBrush(color);
+                }
+                catch
+                {
+                    // Если цвет не распознан, используем цвет по умолчанию
+                    errorBox.Background = new SolidColorBrush(Colors.LightGreen);
+                }
             }
             else if (_Model.BestError < (double)6)
             {
-                errorBox.Background = new SolidColorBrush(Colors.Yellow);
+                try
+                {
+                    var color = (Color)ColorConverter.ConvertFromString(Settings.settings.Color1);
+                    errorBox.Background = new SolidColorBrush(color);
+                }
+                catch
+                {
+                    // Если цвет не распознан, используем цвет по умолчанию
+                    errorBox.Background = new SolidColorBrush(Colors.Yellow);
+                }
+               
             }
             else if (_Model.BestError < (double)9)
             {
-                errorBox.Background = new SolidColorBrush(Colors.DarkOrange);
+                try
+                {
+                    var color = (Color)ColorConverter.ConvertFromString(Settings.settings.Color2);
+                    errorBox.Background = new SolidColorBrush(color);
+                }
+                catch
+                {
+                    // Если цвет не распознан, используем цвет по умолчанию
+                    errorBox.Background = new SolidColorBrush(Colors.DarkOrange);
+                }
+                
             }
             else
             {
-                errorBox.Background = new SolidColorBrush(Colors.Red);
+                try
+                {
+                    var color = (Color)ColorConverter.ConvertFromString(Settings.settings.Color3);
+                    errorBox.Background = new SolidColorBrush(color);
+                }
+                catch
+                {
+                    // Если цвет не распознан, используем цвет по умолчанию
+                    errorBox.Background = new SolidColorBrush(Colors.Red);
+                }
             }
         }
 

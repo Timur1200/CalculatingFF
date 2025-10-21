@@ -36,7 +36,14 @@ namespace CalculatingFF
         public  double Tolerance { get { return tolerance; } set { tolerance = value;settings.OnPropertyChanged("Tolerance"); } }
         private  double tolerance { get; set; }
 
-       
+        private string color { get; set; }
+        public string Color { get { return color; } set { color = value; settings.OnPropertyChanged("Color"); } }
+        private string color1 { get; set; }
+        public string Color1 { get { return color1; } set { color1 = value; settings.OnPropertyChanged("Color1"); } }
+        private string color2 { get; set; }
+        public string Color2 { get { return color2; } set { color2 = value; settings.OnPropertyChanged("Color2"); } }
+        private string color3 { get; set; }
+        public string Color3 { get { return color3; } set { color3 = value; settings.OnPropertyChanged("Color3"); } }
 
         public static Model3 SyncModel(Model2 m2,Model3 m3) 
         {
@@ -82,6 +89,10 @@ namespace CalculatingFF
 
                     settings.Tolerance = loadedSettings.Tolerance;
                     settings.Step = loadedSettings.Step;
+                    settings.Color = loadedSettings.Color;
+                    settings.Color1 = loadedSettings.Color1;
+                    settings.Color2 = loadedSettings.Color2;
+                    settings.Color3 = loadedSettings.Color3;
                 }
             }
             catch (Exception ex)

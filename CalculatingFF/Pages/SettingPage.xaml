@@ -18,33 +18,80 @@
         </Style>
     </Page.Resources>
     <Grid>
-        <StackPanel>
-            <TextBlock HorizontalAlignment="Center" Margin="15" Text="Настройки" FontSize="24"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
             
+        </Grid.RowDefinitions>
+        <TabControl>
+            <TabItem Header="Алгоритм">
+                <StackPanel>
+                    <TextBlock HorizontalAlignment="Center" Margin="15" Text="Настройки" FontSize="24"/>
 
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                </Grid.RowDefinitions>
 
-                <TextBlock Text="Точность" />
-                <TextBox Text="{Binding Tolerance}" x:Name="ToleranceTextBox" Grid.Row="0" Grid.Column="1" />
-                <TextBlock Text="Шаг" Grid.Row="1" Grid.Column="0" />
-                <TextBox Text="{Binding Step}" x:Name="StepTextBox" Grid.Row="1" Grid.Column="1" />
-                <Button Click="SaveToJson_Click" Content="Сохранить" Grid.Row="2" Grid.ColumnSpan="2" Margin="30 15" />
-                <Button Click="ResetClick" Content="По умолчанию" Grid.Row="3" Grid.ColumnSpan="2" Margin="30 15" />
-            </Grid>
-        </StackPanel>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Text="Точность" />
+                        <TextBox Text="{Binding Tolerance}" x:Name="ToleranceTextBox" Grid.Row="0" Grid.Column="1" />
+                        <TextBlock Text="Шаг" Grid.Row="1" Grid.Column="0" />
+                        <TextBox Text="{Binding Step}" x:Name="StepTextBox" Grid.Row="1" Grid.Column="1" />
+                        <Button Click="SaveToJson_Click" Content="Сохранить" Grid.Row="2" Grid.ColumnSpan="2" Margin="30 15" />
+                        <Button Click="ResetClick" Content="По умолчанию" Grid.Row="3" Grid.ColumnSpan="2" Margin="30 15" />
+                    </Grid>
+                </StackPanel>
+            </TabItem>
+            
+            <TabItem Header="Цвет">
+                
+                <StackPanel>
+                    <TextBlock HorizontalAlignment="Center" Margin="15" Text="Настройки" FontSize="24"/>
+
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Text="Отлично" />
+                        <ComboBox Grid.Column="1" SelectionChanged="colorComboBox_SelectionChanged" Name="colorComboBox"  />
+                        <TextBlock Text="Хорошо" Grid.Row="2" Grid.Column="0" />
+                        <ComboBox Grid.Column="1" Grid.Row="2" SelectionChanged="colorComboBox_SelectionChanged1" Name="colorComboBox1"  />
+                        <TextBlock Text="Удовлетворительно" Grid.Row="3" Grid.Column="0" />
+                        <ComboBox Grid.Column="1" Grid.Row="3" SelectionChanged="colorComboBox_SelectionChanged2" Name="colorComboBox2"  />
+                        <TextBlock Text="В других случаях" Grid.Row="4" Grid.Column="0" />
+                        <ComboBox Grid.Column="1" Grid.Row="4" SelectionChanged="colorComboBox_SelectionChanged3" Name="colorComboBox3"  />
+
+                        <Button Click="SaveToJson_Click" Content="Сохранить" Grid.Row="5" Grid.ColumnSpan="2" Margin="30 15" />
+                        <Button Click="ResetClickColor" Content="По умолчанию" Grid.Row="6" Grid.ColumnSpan="2" Margin="30 15" />
+                    </Grid>
+                    
+                </StackPanel>
+            </TabItem>
+        </TabControl>
+        
+        
        
 
     </Grid>

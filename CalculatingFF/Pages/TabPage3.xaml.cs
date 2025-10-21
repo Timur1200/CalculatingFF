@@ -56,23 +56,62 @@ namespace CalculatingFF
         private void box_TextChanged(object sender, TextChangedEventArgs e)
         {
             double diff = _Model3.BestError;
-           
-            if (diff < (double)3)
+
+            if (_Model3.BestError < (double)3)
             {
-                diffBox.Background = new SolidColorBrush(Colors.LightGreen);
+                try
+                {
+                    var color = (Color)ColorConverter.ConvertFromString(Settings.settings.Color);
+                    diffBox.Background = new SolidColorBrush(color);
+                }
+                catch
+                {
+                    // Если цвет не распознан, используем цвет по умолчанию
+                    diffBox.Background = new SolidColorBrush(Colors.LightGreen);
+                }
             }
-            else if (diff < (double)6)
+            else if (_Model3.BestError < (double)6)
             {
-                diffBox.Background = new SolidColorBrush(Colors.Yellow);
+                try
+                {
+                    var color = (Color)ColorConverter.ConvertFromString(Settings.settings.Color1);
+                    diffBox.Background = new SolidColorBrush(color);
+                }
+                catch
+                {
+                    // Если цвет не распознан, используем цвет по умолчанию
+                    diffBox.Background = new SolidColorBrush(Colors.Yellow);
+                }
+
             }
-            else if (diff < (double)9)
+            else if (_Model3.BestError < (double)9)
             {
-                diffBox.Background = new SolidColorBrush(Colors.DarkOrange);
+                try
+                {
+                    var color = (Color)ColorConverter.ConvertFromString(Settings.settings.Color2);
+                    diffBox.Background = new SolidColorBrush(color);
+                }
+                catch
+                {
+                    // Если цвет не распознан, используем цвет по умолчанию
+                    diffBox.Background = new SolidColorBrush(Colors.DarkOrange);
+                }
+
             }
             else
             {
-                diffBox.Background = new SolidColorBrush(Colors.Red);
+                try
+                {
+                    var color = (Color)ColorConverter.ConvertFromString(Settings.settings.Color3);
+                    diffBox.Background = new SolidColorBrush(color);
+                }
+                catch
+                {
+                    // Если цвет не распознан, используем цвет по умолчанию
+                    diffBox.Background = new SolidColorBrush(Colors.Red);
+                }
             }
+
         }
     }
 }

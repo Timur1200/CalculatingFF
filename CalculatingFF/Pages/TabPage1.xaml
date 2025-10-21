@@ -19,7 +19,7 @@
         <!-- Первая колона для входных значений  -->
         <ScrollViewer>
             <StackPanel Grid.Column="0" Margin="20">
-                <TextBlock FontSize="24" FontStyle="Oblique" Text="Входные данные" />
+                <TextBlock FontSize="24" FontStyle="Normal" Text="Входные данные" />
 
                 <TextBlock  Text=" C0 " >
                     <TextBlock.ToolTip>
@@ -64,7 +64,7 @@
                 
                 <DockPanel Margin="5" LastChildFill="False">
                     <Button DockPanel.Dock="Left" Click="TableClick"  Content="Таблица" />
-                    <CheckBox Name="TableCBox" IsChecked="True" FontSize="14" Content="Расчёт таблицы" DockPanel.Dock="Right" />
+                    <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center" Name="TableCBox" IsChecked="True" FontSize="14" Content="Расчёт таблицы" DockPanel.Dock="Right" />
                 </DockPanel>
                 
 
@@ -74,7 +74,7 @@
 
         <!-- Вторая колона для выходных значений  -->
         <StackPanel Grid.Column="1" Margin="20">
-            <TextBlock FontSize="24" FontStyle="Oblique" Text="Переменные" />
+            <TextBlock FontSize="24" FontStyle="Normal" Text="Переменные" />
             <ComboBox SelectionChanged="PoleComboBox_SelectionChanged" Name="PoleComboBox" ></ComboBox>
             <TextBlock Name="TextBlockRo0" Text="ro0" >
                 <TextBlock.ToolTip>
@@ -96,7 +96,7 @@
             <TextBox Text="{Binding B6}"/>
             
             
-            <TextBlock FontSize="24" FontStyle="Oblique" Text="Результат" />
+            <TextBlock FontSize="24" FontStyle="Normal" Text="Результат" />
 
             <TextBlock Text="F1">
                 <TextBlock.ToolTip>

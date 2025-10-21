@@ -55,21 +55,61 @@ namespace CalculatingFF
         }
         public void ChangeColor()
         {
+            
+
             if (_Model.F < (double)3)
             {
-                Fbox.Background = new SolidColorBrush(Colors.LightGreen);
+                try
+                {
+                    var color = (Color)ColorConverter.ConvertFromString(Settings.settings.Color);
+                    Fbox.Background = new SolidColorBrush(color);
+                }
+                catch
+                {
+                    // Если цвет не распознан, используем цвет по умолчанию
+                    Fbox.Background = new SolidColorBrush(Colors.LightGreen);
+                }
             }
             else if (_Model.F < (double)6)
             {
-                Fbox.Background = new SolidColorBrush(Colors.Yellow);
+                try
+                {
+                    var color = (Color)ColorConverter.ConvertFromString(Settings.settings.Color1);
+                    Fbox.Background = new SolidColorBrush(color);
+                }
+                catch
+                {
+                    // Если цвет не распознан, используем цвет по умолчанию
+                    Fbox.Background = new SolidColorBrush(Colors.Yellow);
+                }
+
             }
             else if (_Model.F < (double)9)
             {
-                Fbox.Background = new SolidColorBrush(Colors.DarkOrange);
+                try
+                {
+                    var color = (Color)ColorConverter.ConvertFromString(Settings.settings.Color2);
+                    Fbox.Background = new SolidColorBrush(color);
+                }
+                catch
+                {
+                    // Если цвет не распознан, используем цвет по умолчанию
+                    Fbox.Background = new SolidColorBrush(Colors.DarkOrange);
+                }
+
             }
             else
             {
-                Fbox.Background = new SolidColorBrush(Colors.Red);
+                try
+                {
+                    var color = (Color)ColorConverter.ConvertFromString(Settings.settings.Color3);
+                    Fbox.Background = new SolidColorBrush(color);
+                }
+                catch
+                {
+                    // Если цвет не распознан, используем цвет по умолчанию
+                    Fbox.Background = new SolidColorBrush(Colors.Red);
+                }
             }
         }
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
